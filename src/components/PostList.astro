@@ -1,0 +1,35 @@
+---
+import { formatDate, slugify, type Post } from "../lib/content";
+import { url } from "../lib/url";
+
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+---
+{posts.length === 0 ? (
+  <div class="empty-note">
+    <svg viewBox="0 0 96 72" width="96" height="72" aria-hidden="true">
+      <path d="M10 8h62l14 14v42H10z" />
+      <path d="M72 8v14h14" />
+      <path d="M20 30h50M20 40h56M20 50h38" />
+      <path d="M58 62l20-20 6 6-20 20h-6z" />
+    </svg>
+    <p><span class="hand">Notebook open.</span>No posts are published yet. New entries also go out on the <a href={url("/rss.xml")}>RSS feed</a>.</p>
+  </div>
+) : (
+  <ul class="post-list">
+    {posts.map((post) => (
+      <li>
+        <p class="post-date"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></p>
+        <div>
+          <h3><a href={url(`/blog/${post.id}/`)}>{post.data.title}</a>{post.data.draft && <span class="meta"> (draft)</span>}</h3>
+          <p>{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <ul class="tags" aria-label="Tags">
+              {post.data.tags.map((t) => <li><a class="tag" href={url(`/blog/tags/${slugify(t)}/`)}>{t}</a></li>)}
+            </ul>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+)}

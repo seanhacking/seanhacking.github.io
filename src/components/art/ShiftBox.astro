@@ -1,0 +1,62 @@
+---
+// SHIFT: a schematic, not the patented mechanism. The belt keeps running and the load line stays
+// continuous while the ratio steps: it shifts under load, without a clutch.
+import { beltPath, toothedOutline } from "../../lib/geometry";
+
+interface Props { label?: string }
+const { label = "Schematic of the SHIFT belt transmission: the belt keeps running while the gear ratio steps up three times, and the load line stays continuous through every shift." } = Astro.props;
+
+const C1: [number, number] = [86, 84];
+const C2: [number, number] = [262, 84];
+const R1 = 40;
+const R2 = 24;
+const belt = beltPath(C1, R1 + 5, C2, R2 + 5);
+const V = 50;
+const runT = 90 / V;
+const T1 = (2 * Math.PI * (R1 + 5)) / V;
+const T2 = (2 * Math.PI * (R2 + 5)) / V;
+
+// Chart: x 40..370. Ratio steps at 1/4, 2/4, 3/4. Load: gently varying, never drops.
+const CX0 = 40, CX1 = 370;
+const q = (CX1 - CX0) / 4;
+const ratio = `M${CX0} 236H${CX0 + q}V222H${CX0 + 2 * q}V208H${CX0 + 3 * q}V194H${CX1}`;
+let load = `M${CX0} 176`;
+for (let i = 0; i < 8; i++) {
+  const x = CX0 + (i * (CX1 - CX0)) / 8;
+  const x2 = CX0 + ((i + 1) * (CX1 - CX0)) / 8;
+  load += `C${(x + 14).toFixed(1)} ${i % 2 ? 170 : 182} ${(x2 - 14).toFixed(1)} ${i % 2 ? 182 : 170} ${x2.toFixed(1)} 176`;
+}
+---
+<svg class="art sh" viewBox="0 0 400 280" width="400" height="280" role="img" aria-label={label}>
+  <g class="spin" style={`--o:${C1[0]}px ${C1[1]}px;--T:${T1.toFixed(2)}s;--d:1.2s`}>
+    <path class="part draw part-fill" pathLength="1" style="--t:.8s" d={toothedOutline(C1[0], C1[1], R1, 24, 3.5)} />
+    <circle class="part hub" cx={C1[0]} cy={C1[1]} r="11" />
+    <path class="part-line" d={`M${C1[0] - 26} ${C1[1]}H${C1[0] + 26}M${C1[0]} ${C1[1] - 26}V${C1[1] + 26}`} />
+  </g>
+  <path class="belt draw" pathLength="1" style="--d:.6s;--t:.8s" d={belt.d} />
+  <path class="belt-teeth fade run" style={`--d:1.2s;--T:${runT.toFixed(3)}s;--run:-90`} d={belt.d} />
+
+  <!-- The transmission: drawn as a closed housing on purpose -->
+  <g class="sh-box">
+    <rect class="part solid" x={C2[0] - 56} y={C2[1] - 46} width="120" height="92" rx="10" />
+    <g class="spin" style={`--o:${C2[0]}px ${C2[1]}px;--T:${T2.toFixed(2)}s;--d:1.2s`}>
+      <path class="part part-fill" d={toothedOutline(C2[0], C2[1], R2, 16, 3)} />
+      <circle class="bore" cx={C2[0]} cy={C2[1]} r="5" />
+    </g>
+    <text x={C2[0] - 48} y={C2[1] - 32} class="t-mono t-small t-inv">SHIFT</text>
+    <path class="sh-gauge" d={`M${C2[0] + 32} ${C2[1] + 4}a13 13 0 0 1 26 0z`} />
+    <path class="sh-needle" style={`--o:${C2[0] + 45}px ${C2[1] + 4}px`} d={`M${C2[0] + 45} ${C2[1] + 4}V${C2[1] - 7}`} />
+  </g>
+  <text x="384" y="28" class="t-hand t-red fade" style="--d:1.4s" text-anchor="end">no clutch</text>
+
+  <!-- Chart: ratio steps, load stays continuous -->
+  <path class="axis" d={`M${CX0} 152V246H${CX1 + 6}`} />
+  <text x={CX0} y="146" class="t-mono t-small">LOAD</text>
+  <text x={CX0 + 6} y="262" class="t-mono t-small t-cad">RATIO</text>
+  <text x={CX1 + 6} y="262" class="t-mono t-small" text-anchor="end">TIME</text>
+  {[1, 2, 3].map((i) => <path class="sh-mark" d={`M${CX0 + i * q} 154V246`} />)}
+  {[1, 2, 3].map((i) => <text x={CX0 + i * q} y="150" class="t-mono t-small t-red" text-anchor="middle">shift</text>)}
+  <path class="sh-ratio" pathLength="1" d={ratio} />
+  <path class="sh-load" pathLength="1" d={load} />
+  <path class="sh-head" d={`M${CX0} 154V246`} />
+</svg>

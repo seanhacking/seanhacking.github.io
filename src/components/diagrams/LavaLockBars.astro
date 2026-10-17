@@ -1,0 +1,17 @@
+---
+// LavaLock results as simple bars. Numbers from the project write-up.
+const rows = [
+  { label: "Setup time", before: "Before", beforeV: 100, after: "With LavaLock", afterV: 9, note: "91% less" },
+  { label: "Prototype cost", before: "Before", beforeV: 100, after: "With LavaLock", afterV: 50, note: "50% less" },
+  { label: "Resin strength", before: "Commercial, 300 PSI", beforeV: (300 / 561) * 100, after: "Custom, 561 PSI", afterV: 100, note: "561 PSI vs 300 PSI" },
+];
+---
+<div class="bars" data-anim>
+  {rows.map((r, i) => (
+    <section class="bars-row" aria-label={`${r.label}: ${r.note}`}>
+      <h3>{r.label} <span class="bars-note">{r.note}</span></h3>
+      <div class="bar-line"><span class="bar-label">{r.before}</span><span class="bar" aria-hidden="true"><span class="bar-fill bar-before" style={`--w:${r.beforeV.toFixed(1)}%;--d:${(0.2 + i * 0.2).toFixed(1)}s`}></span></span></div>
+      <div class="bar-line"><span class="bar-label">{r.after}</span><span class="bar" aria-hidden="true"><span class="bar-fill bar-after" style={`--w:${r.afterV.toFixed(1)}%;--d:${(0.4 + i * 0.2).toFixed(1)}s`}></span></span></div>
+    </section>
+  ))}
+</div>

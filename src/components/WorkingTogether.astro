@@ -1,0 +1,26 @@
+---
+// "Working together", from the About text in profile.json, with the four kinds of work as a list.
+import profile from "../data/profile.json";
+import { renderMarkdown } from "../lib/markdown";
+import { url } from "../lib/url";
+
+const section = profile.about.split(/\n##\s+Working together\s*\n/)[1]?.trim();
+const kinds = ["A prototype, from sketch to tested hardware", "A DFM and cost-down push", "A test rig", "A mechanism that keeps failing"];
+---
+{section && (
+  <section class="cta" aria-labelledby="cta-title">
+    <svg class="rev-mark" viewBox="0 0 32 28" aria-hidden="true"><path d="M16 2L30 26H2Z" /><text x="16" y="23" text-anchor="middle">A</text></svg>
+    <div>
+      <p class="eyebrow">Working together</p>
+      <h2 id="cta-title">Got a mechanism that keeps failing?</h2>
+      <div set:html={renderMarkdown(section)} />
+      <ul class="button-row">
+        <li><a class="button primary" href={url("/contact/")}>Get in touch <span aria-hidden="true">→</span></a></li>
+        <li><a class="button" href={url("/about/")}>About me</a></li>
+      </ul>
+    </div>
+    <ul class="cta-list" aria-label="Projects I take on">
+      {kinds.map((k) => <li>{k}</li>)}
+    </ul>
+  </section>
+)}

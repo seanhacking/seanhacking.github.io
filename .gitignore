@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.screenshots/
+
+# kept on the owner's PC only (the harness reads it for the launch card); never public
+PRIVACY-CHECK.md

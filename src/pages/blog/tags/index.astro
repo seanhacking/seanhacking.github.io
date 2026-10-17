@@ -1,0 +1,20 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { collectTags, getPosts } from "../../../lib/content";
+import { url } from "../../../lib/url";
+
+const tags = collectTags(await getPosts());
+---
+<Base title="Tags" description="Blog posts by tag.">
+  <div class="wrap-wide page">
+    <p class="eyebrow"><a href={url("/blog/")}>Blog</a></p>
+    <h1>Tags</h1>
+    {tags.length === 0 ? (
+      <p class="empty">No tags yet.</p>
+    ) : (
+      <ul class="tags">
+        {tags.map((t) => <li><a class="tag" href={url(`/blog/tags/${t.slug}/`)}>{t.tag} ({t.count})</a></li>)}
+      </ul>
+    )}
+  </div>
+</Base>

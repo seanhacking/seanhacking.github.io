@@ -1,0 +1,35 @@
+---
+// The home page story: seven chapters on one running belt. Chapter text lives in src/data/story.json.
+import story from "../data/story.json";
+import ArtFrame from "./ArtFrame.astro";
+import StoryArt from "./StoryArt.astro";
+import { toothedOutline } from "../lib/geometry";
+import { url } from "../lib/url";
+
+type Chapter = (typeof story.chapters)[number] & { note?: string; project?: string };
+const chapters = story.chapters as Chapter[];
+const total = chapters.length;
+const idler = toothedOutline(20, 20, 13, 12, 3);
+---
+<div class="story" data-belt>
+  <div class="story-belt" aria-hidden="true"><span></span></div>
+  <ol class="chapters">
+    {chapters.map((c, i) => (
+      <li class:list={["chapter", { flip: i % 2 === 1 }]} id={`chapter-${c.id}`}>
+        <svg class="chapter-idler" viewBox="0 0 40 40" width="40" height="40" aria-hidden="true">
+          <path class="part part-fill" d={idler} />
+          <circle class="part hub" cx="20" cy="20" r="5" />
+        </svg>
+        <div class="chapter-text">
+          <p class="chapter-meta"><span class="chapter-n">{String(i + 1).padStart(2, "0")}</span><span>{c.stage}</span><span>{c.where}{c.when !== c.where ? `, ${c.when}` : ""}</span></p>
+          <h3>{c.title}</h3>
+          <p>{c.text}</p>
+          {c.project && <p class="chapter-link"><a href={url(`/projects/${c.project}/`)}>The project<span class="visually-hidden">: {c.title}</span> <span aria-hidden="true">→</span></a></p>}
+        </div>
+        <ArtFrame title={c.artTitle} sheet={`${i + 2} / ${total + 1}`} note={c.note} class="chapter-art">
+          <StoryArt art={c.art} />
+        </ArtFrame>
+      </li>
+    ))}
+  </ol>
+</div>

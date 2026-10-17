@@ -1,0 +1,25 @@
+---
+import type { Project } from "../lib/content";
+import { url } from "../lib/url";
+import ProjectArt from "./ProjectArt.astro";
+
+interface Props { projects: Project[]; headingLevel?: 2 | 3 }
+const { projects } = Astro.props;
+---
+<ul class="cards">
+  {projects.map((p) => (
+    <li class="card">
+      <ProjectArt slug={p.id} title={p.data.title} />
+      <div class="card-body">
+        <p class="card-meta">{p.data.period ?? p.data.date.getUTCFullYear()}{p.data.role ? ` · ${p.data.role}` : ""}</p>
+        <h3><a href={url(`/projects/${p.id}/`)}>{p.data.title}</a></h3>
+        <p>{p.data.summary}</p>
+        {p.data.tags.length > 0 && (
+          <ul class="tags" aria-label="Tags">
+            {p.data.tags.map((t) => <li class="tag">{t}</li>)}
+          </ul>
+        )}
+      </div>
+    </li>
+  ))}
+</ul>

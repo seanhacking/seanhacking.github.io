@@ -1,0 +1,95 @@
+{
+  "name": "Sean Hacking",
+  "headline": "Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production.",
+  "location": "San Francisco Bay Area",
+  "intro": "I design mechanisms, build the prototypes and test them until they hold up. I founded and ran Veer, a cycling drivetrain company, and most recently worked on Zipline's New Products team.",
+  "links": [
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/sean-hacking-b5006618/" },
+    { "label": "GitHub", "url": "https://github.com/seanhacking" }
+  ],
+  "about": "I'm a mechanical engineer who gets hardware from a napkin sketch to a flight-tested prototype to production, quickly.\n\nMost recently I was on Zipline's New Products team, where I took the second-generation drone-loading kiosk through 9 flight-tested prototypes across 3 generations. Before that I founded Veer, a cycling drivetrain company, where I invented the products, set up in-house CNC production and worked with our manufacturing vendors. After Veer I set up Form Robotics, a prototyping shop built around five CNC machines.\n\nI like owning whole systems: the mechanism, the test rig that proves it, and the cost and supplier work that gets it shipped. I'm a named inventor on 6+ patents, granted or pending. When something keeps failing, I find out why and fix the design.\n\nI studied bioengineering at UC Santa Cruz and started out building liquid-handling robots for synthetic DNA manufacturing.\n\n## Working together\n\nI take on mechanical engineering projects: a prototype from sketch to tested hardware, a DFM and cost-down push, a test rig, or a mechanism that keeps failing. The [contact page](/contact/) has the ways to reach me.",
+  "cv": {
+    "summary": "Mechanical engineer who takes hardware from rough sketch to flight-tested prototype to production, fast. Former hardware founder (Veer, cycling drivetrains) and most recently on Zipline's New Products team. 6+ patents granted or pending.",
+    "experience": [
+      {
+        "role": "Senior Mechanical Engineer, New Products Team",
+        "org": "Zipline",
+        "start": "Oct 2025",
+        "end": "Sep 2026",
+        "highlights": [
+          "Developed the second-generation Zipline Dropbox (robotic drone loading and package pickup kiosk) from rough sketches through 9 flight-tested prototypes across 3 generations.",
+          "Sole R&D engineer through early architecture, then owned all systems interacting with the active package (Droid/Pod) on the design team.",
+          "Invented and developed multiple critical systems that defined the kiosk architecture: >10x improvement in key package-pickup reliability metrics.",
+          "~3x cost reduction versus the current production generation through architecture decisions and DFM.",
+          "Named inventor on at least one patent application.",
+          "Ran prototypes through lab and flight testing on tight cycles; worked with electrical, software, NPI and supply chain toward production."
+        ]
+      },
+      {
+        "role": "Founder & Lead Engineer",
+        "org": "Form Robotics",
+        "start": "2024",
+        "end": "2025",
+        "highlights": [
+          "Built a prototyping facility with 5 CNC machines from scratch: same-day design-to-testable-part.",
+          "Invented the LavaLock universal workholding system: 91% setup-time reduction, 50% prototype cost savings; developed a custom thermoplastic resin (561 PSI vs. 300 PSI commercial).",
+          "Machined next-day prototypes for aerospace and robotics customers, including Zipline motor housings and bulkheads.",
+          "MVP and early sales within 6 months."
+        ]
+      },
+      {
+        "role": "Founder & CTO",
+        "org": "Veer",
+        "start": "2016",
+        "end": "2024",
+        "highlights": [
+          "Founded a cycling drivetrain company and built and led its engineering team; set up in-house CNC production; managed key manufacturing vendors.",
+          "Invented and commercialised Split Belt Pro and the V-Link detachable belt splice, creating the first belt-drive conversion category for cycling; won the Eurobike Startup Award competing against Gates.",
+          "Invented the SHIFT seamless belt transmission (shifts under load without a clutch); wrote and prosecuted the patent to grant in the US and internationally with no rejections; designed it for manufacture against a unit-cost target.",
+          "Built a drivetrain test suite exceeding ISO standards on a shoestring (a UTM built from a log splitter and load cell in 1 week); root-caused early belt failures and redesigned to a 20,000-mile lifespan.",
+          "Designed and programmed the LinkBot automated belt-assembly tool: installation from 10 min to under 30 s, with under 1 fault per 4,000 rivets.",
+          "Created 70+ pulley designs and an accessory catalogue for drop-in fitment."
+        ]
+      },
+      {
+        "role": "R&D Scientist/Engineer",
+        "org": "Cambrian Genomics",
+        "start": "2014",
+        "end": "2015",
+        "highlights": [
+          "Built and programmed custom liquid-handling robotics for synthetic DNA manufacturing; 93% microsphere enrichment.",
+          "Invented the first process for recovering monoclonal DNA clusters from Illumina flow cells; designed precision components for DNA laser-catapult systems."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "B.S. Bioengineering, minor in Bioinformatics",
+        "school": "University of California, Santa Cruz",
+        "year": "2014"
+      }
+    ],
+    "skills": [
+      {
+        "area": "CAD and prototyping",
+        "items": ["15+ years SolidWorks (motion simulation, large assemblies)", "12+ years CNC programming and operation (3–5 axis mills, live-tooling lathes)", "Same-day CAD-to-part"]
+      },
+      {
+        "area": "Manufacturing",
+        "items": ["Injection moulding, die casting, sheet metal, extrusion", "MIG/TIG welding, surface treatments", "Supplier and contract-manufacturer management from prototype to 10K+ units"]
+      },
+      {
+        "area": "Systems",
+        "items": ["Mechanisms, structures, electromechanical integration", "Motion control, pneumatics", "Microcontroller/PLC programming (Python, C++)"]
+      },
+      {
+        "area": "Validation",
+        "items": ["Custom test rigs, accelerated life testing", "Flight testing", "Root-cause analysis"]
+      },
+      {
+        "area": "IP and safety",
+        "items": ["6+ patents granted or pending, including international", "Zero safety incidents across 10+ years of shop operations"]
+      }
+    ]
+  }
+}

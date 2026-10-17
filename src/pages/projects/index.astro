@@ -1,0 +1,17 @@
+---
+import Base from "../../layouts/Base.astro";
+import ProjectCards from "../../components/ProjectCards.astro";
+import { getProjects } from "../../lib/content";
+
+const projects = await getProjects();
+---
+<Base title="Projects" description="Hardware I've designed, built and tested: a drone-loading kiosk, belt drivetrains and transmissions, and CNC workholding.">
+  <div class="wrap-wide page">
+    <header class="page-head">
+      <p class="eyebrow">Projects · {projects.length} drawings on file</p>
+      <h1>Projects</h1>
+      <p class="lede">Hardware I've designed, prototyped, tested and taken toward production.</p>
+    </header>
+    <ProjectCards projects={projects} />
+  </div>
+</Base>

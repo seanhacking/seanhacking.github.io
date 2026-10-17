@@ -1,0 +1,33 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { formatDate, getPosts, slugify, type Post } from "../../lib/content";
+import { url } from "../../lib/url";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props as { post: Post };
+const { Content } = await render(post);
+const d = post.data;
+---
+<Base title={d.title} description={d.description} image={d.heroImage} canonical={d.canonical} type="article" publishedTime={d.date} noindex={d.draft === true}>
+  <div class="wrap-wide page">
+    <article class="notebook" style="max-width:52rem;margin:0 auto">
+      <p class="eyebrow"><a href={url("/blog/")}>Notebook</a> · <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
+      {d.draft && <p class="draft-banner">Draft: not published on the live site.</p>}
+      <h1>{d.title}</h1>
+      <p class="lede">{d.description}</p>
+      {d.heroImage && <img class="hero-image" src={url(d.heroImage)} alt="" />}
+      <div class="prose"><Content /></div>
+      {d.tags.length > 0 && (
+        <ul class="tags" aria-label="Tags" style="margin-top:2rem">
+          {d.tags.map((t) => <li><a class="tag" href={url(`/blog/tags/${slugify(t)}/`)}>{t}</a></li>)}
+        </ul>
+      )}
+    </article>
+    <p class="meta" style="max-width:52rem;margin:1.5rem auto 0"><a href={url("/blog/")}>← All posts</a></p>
+  </div>
+</Base>

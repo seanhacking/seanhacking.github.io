@@ -1,0 +1,225 @@
+---
+import "@fontsource-variable/big-shoulders-display/wght";
+import "@fontsource-variable/atkinson-hyperlegible-next/wght";
+import "@fontsource-variable/martian-mono/wdth";
+import displayLatin from "@fontsource-variable/big-shoulders-display/files/big-shoulders-display-latin-wght-normal.woff2?url";
+import bodyLatin from "@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url";
+import "../styles/global.css";
+import "../styles/art.css";
+import profile from "../data/profile.json";
+import { absoluteUrl, IS_PREVIEW, url } from "../lib/url";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: "website" | "article" | "profile";
+  publishedTime?: Date;
+  noindex?: boolean;
+  /** Optional class on <body> for page-specific layouts. */
+  bodyClass?: string;
+}
+
+const { title, description = profile.headline, image, canonical, type = "website", publishedTime, noindex = false, bodyClass } = Astro.props;
+const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name}: ${profile.headline}`;
+const pageUrl = absoluteUrl(Astro.url.pathname);
+const canonicalUrl = canonical ? absoluteUrl(canonical) : pageUrl;
+const imageUrl = image ? absoluteUrl(image) : undefined;
+const path = Astro.url.pathname;
+const is404 = /\/404(?:\.html|\/)?$/.test(path);
+
+const nav = [
+  { href: url("/about/"), label: "About", match: (p: string) => p.startsWith(url("/about/")) || p.startsWith(url("/cv/")) },
+  { href: url("/projects/"), label: "Projects", match: (p: string) => p.startsWith(url("/projects/")) },
+  { href: url("/blog/"), label: "Blog", match: (p: string) => p.startsWith(url("/blog/")) },
+  { href: url("/contact/"), label: "Contact", match: (p: string) => p.startsWith(url("/contact/")) },
+];
+const normalisedPath = path.endsWith("/") ? path : path + "/";
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    {!is404 && <link rel="canonical" href={canonicalUrl} />}
+    {(IS_PREVIEW || noindex) && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e9ecee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14171a" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href={displayLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href={url("/favicon.svg")} type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${profile.name}: writing`} href={url("/rss.xml")} />
+    {!IS_PREVIEW && <link rel="sitemap" href={url("/sitemap-index.xml")} />}
+
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={title ?? profile.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    {!is404 && <meta property="og:url" content={canonicalUrl} />}
+    <meta property="og:locale" content="en_US" />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+    <meta name="twitter:card" content={imageUrl ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title ?? profile.name} />
+    <meta name="twitter:description" content={description} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+
+    <script is:inline>
+      // Before first paint: theme (stored only in this browser) and motion (off for reduced-motion
+      // visitors, or when they switched it off). Drawings are static unless <html> has class "motion".
+      (function () {
+        var d = document.documentElement;
+        d.classList.remove("no-js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+        } catch (e) {}
+        var still = false;
+        try { still = localStorage.getItem("motion") === "off"; } catch (e) {}
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!still && !reduce) d.classList.add("motion");
+      })();
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap-wide header-row">
+        <a class="brand" href={url("/")} aria-current={normalisedPath === url("/") ? "page" : undefined}>
+          <svg class="brand-mark" viewBox="0 0 48 28" width="48" height="28" aria-hidden="true">
+            <path d="M12 3.5H38M12 24.5H38" />
+            <circle cx="12" cy="14" r="10.5" />
+            <circle cx="38" cy="14" r="5.5" />
+            <circle class="brand-hub" cx="12" cy="14" r="3" />
+          </svg>
+          <span>{profile.name}</span>
+        </a>
+        <nav class="nav" aria-label="Main">
+          <ul>
+            {nav.map((item) => (
+              <li><a href={item.href} aria-current={item.match(normalisedPath) ? "page" : undefined}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <div class="switches">
+          <button class="switch theme-toggle" type="button" aria-pressed="false" title="Dark theme">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" /></svg>
+            <span class="switch-label">Dark</span>
+          </button>
+          <button class="switch motion-toggle" type="button" aria-pressed="true" title="Animated drawings">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6" /><path d="M8 2v3M8 11v3M2 8h3M11 8h3" /></svg>
+            <span class="switch-label">Motion</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap-wide">
+        <div class="title-block-footer">
+          <div class="tbf-cell tbf-wide">
+            <span class="tbf-label">Drawn by</span>
+            <span class="tbf-value">{profile.name}</span>
+          </div>
+          {profile.location && (
+            <div class="tbf-cell">
+              <span class="tbf-label">Location</span>
+              <span class="tbf-value">{profile.location}</span>
+            </div>
+          )}
+          <div class="tbf-cell">
+            <span class="tbf-label">Links</span>
+            <ul class="tbf-links">
+              {profile.links.map((l) => <li><a href={l.url} rel="me noopener">{l.label}</a></li>)}
+              <li><a href={url("/rss.xml")}>RSS</a></li>
+            </ul>
+          </div>
+          <div class="tbf-cell">
+            <span class="tbf-label">Rev</span>
+            <span class="tbf-value">&copy; {year}</span>
+          </div>
+        </div>
+        <p class="footer-note">No tracking, no cookies. The drawings are illustrations made for this site.</p>
+      </div>
+    </footer>
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+        // Theme switch: aluminium (light) and graphite (dark).
+        var tbtn = document.querySelector(".theme-toggle");
+        function theme() { return d.getAttribute("data-theme") || (mq && mq.matches ? "dark" : "light"); }
+        function showTheme() {
+          if (!tbtn) return;
+          var dark = theme() === "dark";
+          tbtn.setAttribute("aria-pressed", dark ? "true" : "false");
+        }
+        if (tbtn) tbtn.addEventListener("click", function () {
+          var next = theme() === "dark" ? "light" : "dark";
+          d.setAttribute("data-theme", next);
+          try { localStorage.setItem("theme", next); } catch (e) {}
+          showTheme();
+        });
+        if (mq && mq.addEventListener) mq.addEventListener("change", showTheme);
+        showTheme();
+
+        // Motion switch: stops every animation and leaves the finished drawings.
+        var mbtn = document.querySelector(".motion-toggle");
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function showMotion() {
+          if (!mbtn) return;
+          var on = d.classList.contains("motion");
+          mbtn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+        if (mbtn) mbtn.addEventListener("click", function () {
+          var on = !d.classList.contains("motion");
+          d.classList.toggle("motion", on);
+          try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
+          showMotion();
+          if (on) observe();
+        });
+        showMotion();
+        if (reduce && mbtn) mbtn.hidden = true;
+
+        // Drawings run only while on screen: elements marked data-anim get "is-live" while visible.
+        var io = null;
+        function observe() {
+          var els = document.querySelectorAll("[data-anim]");
+          if (!("IntersectionObserver" in window)) {
+            for (var i = 0; i < els.length; i++) els[i].classList.add("is-live");
+            return;
+          }
+          if (io) return;
+          io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { e.target.classList.toggle("is-live", e.isIntersecting); });
+          }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+          for (var j = 0; j < els.length; j++) io.observe(els[j]);
+        }
+        if (d.classList.contains("motion")) observe();
+
+        // The story belt moves with the scroll position.
+        var belt = document.querySelector("[data-belt]");
+        if (belt) {
+          var ticking = false;
+          var update = function () {
+            ticking = false;
+            if (!d.classList.contains("motion")) return;
+            belt.style.setProperty("--sp", String(Math.round(window.scrollY)));
+          };
+          window.addEventListener("scroll", function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+          }, { passive: true });
+          update();
+        }
+      })();
+    </script>
+  </body>
+</html>

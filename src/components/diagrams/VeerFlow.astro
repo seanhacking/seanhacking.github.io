@@ -1,0 +1,52 @@
+---
+// Veer: how the pieces of the belt-drive system came together. Facts from the project write-up.
+const steps = [
+  { k: "belt", title: "The belt", text: "Split Belt Pro, closed by the V-Link detachable splice." },
+  { k: "fit", title: "Fitment", text: "70+ pulley designs and an accessory catalogue for drop-in fitment." },
+  { k: "test", title: "Testing", text: "A test suite beyond ISO standards found why early belts failed. The redesign lasts 20,000 miles." },
+  { k: "build", title: "Assembly", text: "LinkBot puts a belt together in under 30 seconds, down from about 10 minutes." },
+];
+---
+<ol class="flow" data-anim>
+  {steps.map((s, i) => (
+    <li class="flow-step">
+      <svg class="flow-icon" viewBox="0 0 120 70" width="120" height="70" aria-hidden="true">
+        {s.k === "belt" && (
+          <>
+            <rect class="belt-strip" x="6" y="30" width="108" height="12" rx="2" />
+            <path class="belt-teeth-strip" d="M8 42h104" />
+            <rect class="part solid pop" style="--d:.3s" x="44" y="24" width="32" height="12" rx="3" />
+            <circle class="rivet" cx="52" cy="30" r="2" />
+            <circle class="rivet" cx="68" cy="30" r="2" />
+          </>
+        )}
+        {s.k === "fit" && (
+          <>
+            {[[16, 10], [40, 14], [70, 18], [102, 12]].map(([x, r], j) => (
+              <circle class="part part-fill pop" style={`--d:${0.3 + j * 0.12}s`} cx={x} cy="34" r={r} />
+            ))}
+            <text x="60" y="66" class="t-mono t-small" text-anchor="middle">70+ DESIGNS</text>
+          </>
+        )}
+        {s.k === "test" && (
+          <>
+            <path class="axis" d="M8 6V56H114" />
+            <path class="iso" d="M8 26H114" />
+            <path class="flow-trace draw" pathLength="1" style="--d:.4s;--t:1.2s" d="M8 50C16 50 18 14 26 14S36 50 44 50 52 14 60 14 70 50 78 50 86 14 94 14 104 50 112 50" />
+          </>
+        )}
+        {s.k === "build" && (
+          <>
+            <rect class="belt-strip" x="6" y="40" width="108" height="10" rx="2" />
+            <rect class="part" x="34" y="32" width="52" height="8" rx="2" />
+            {[42, 54, 66, 78].map((x, j) => <circle class="rivet pop" style={`--d:${0.4 + j * 0.15}s`} cx={x} cy="36" r="2.4" />)}
+            <path class="part solid" d="M54 4h12v14h-12zM57 18h6l-1 8h-4z" />
+          </>
+        )}
+      </svg>
+      <p class="flow-n">{String(i + 1).padStart(2, "0")}</p>
+      <h3>{s.title}</h3>
+      <p>{s.text}</p>
+    </li>
+  ))}
+</ol>

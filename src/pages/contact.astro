@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import profile from "../data/profile.json";
+
+type Profile = typeof profile & { email?: string };
+const email = (profile as Profile).email;
+const tidy = (u: string) => u.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+---
+<Base title="Contact" description={`How to reach ${profile.name}.`}>
+  <article class="wrap-wide page">
+    <header class="page-head">
+      <p class="eyebrow">Contact</p>
+      <h1>Get in touch</h1>
+      <p class="lede">If you have a prototype to get to tested hardware, a cost-down to push through, or a mechanism that keeps failing, I'd like to hear about it.</p>
+    </header>
+    <ul class="contact-links">
+      {email && (
+        <li><a href={`mailto:${email}`}><span class="cl-label">Email</span><span class="cl-value">{email}</span><span class="cl-arrow" aria-hidden="true">→</span></a></li>
+      )}
+      {profile.links.map((l) => (
+        <li><a href={l.url} rel="me noopener"><span class="cl-label">{l.label}</span><span class="cl-value">{tidy(l.url)}</span><span class="cl-arrow" aria-hidden="true">→</span></a></li>
+      ))}
+    </ul>
+    {profile.location && <p class="meta">Based in the {profile.location}.</p>}
+  </article>
+</Base>

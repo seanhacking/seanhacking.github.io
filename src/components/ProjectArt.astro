@@ -1,0 +1,25 @@
+---
+// The drawing for a project, by slug. New projects get the generic belt-drive sheet until a
+// drawing is made for them (add a case below).
+import ArtFrame from "./ArtFrame.astro";
+import BeltSplice from "./art/BeltSplice.astro";
+import CncShop from "./art/CncShop.astro";
+import DropboxKiosk from "./art/DropboxKiosk.astro";
+import ShiftBox from "./art/ShiftBox.astro";
+import GenericPulley from "./art/GenericPulley.astro";
+
+interface Props { slug: string; title: string; class?: string; sheet?: string }
+const { slug, title, class: cls, sheet } = Astro.props;
+
+const notes: Record<string, string> = {
+  "zipline-dropbox-kiosk": "Illustration, not the actual design",
+  "shift-seamless-belt-transmission": "Schematic, not the patented mechanism",
+};
+---
+<ArtFrame title={title} sheet={sheet} note={notes[slug]} class={cls}>
+  {slug === "zipline-dropbox-kiosk" ? <DropboxKiosk /> :
+   slug === "veer-belt-drive" ? <BeltSplice /> :
+   slug === "shift-seamless-belt-transmission" ? <ShiftBox /> :
+   slug === "lavalock-workholding" ? <CncShop /> :
+   <GenericPulley />}
+</ArtFrame>

@@ -1,0 +1,20 @@
+---
+// Fallback drawing for projects without their own: a pulley in two views with dimensions.
+import { toothedOutline } from "../../lib/geometry";
+interface Props { label?: string }
+const { label = "Line drawing of a toothed pulley in front and side view." } = Astro.props;
+const C: [number, number] = [140, 140];
+---
+<svg class="art gp" viewBox="0 0 400 280" width="400" height="280" role="img" aria-label={label}>
+  <path class="cl fade" d="M50 140H372M140 50V230" />
+  <g class="spin" style={`--o:${C[0]}px ${C[1]}px;--T:14s;--d:1.2s`}>
+    <path class="part draw part-fill" pathLength="1" style="--t:1s" d={toothedOutline(C[0], C[1], 76, 36, 5)} />
+    <circle class="part-line draw" pathLength="1" style="--d:.5s;--t:.5s" cx={C[0]} cy={C[1]} r="58" />
+    <circle class="part hub draw" pathLength="1" style="--d:.7s;--t:.4s" cx={C[0]} cy={C[1]} r="22" />
+    <circle class="bore" cx={C[0]} cy={C[1]} r="8" />
+  </g>
+  <rect class="part part-fill draw" pathLength="1" style="--d:.4s;--t:.7s" x="290" y="59" width="34" height="162" rx="2" />
+  <rect class="part draw" pathLength="1" style="--d:.6s;--t:.5s" x="284" y="118" width="46" height="44" />
+  <path class="dim-line draw" pathLength="1" style="--d:1s;--t:.5s" d="M290 236V250M324 236V250M290 246H324" />
+  <text x="307" y="266" class="t-dim fade" style="--d:1.3s" text-anchor="middle">W</text>
+</svg>

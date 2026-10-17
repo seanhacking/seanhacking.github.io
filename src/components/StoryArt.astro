@@ -1,0 +1,22 @@
+---
+// A story drawing by key (see src/data/story.json "art").
+import LabBench from "./art/LabBench.astro";
+import BeltSplice from "./art/BeltSplice.astro";
+import TestRig from "./art/TestRig.astro";
+import ShiftBox from "./art/ShiftBox.astro";
+import LinkBot from "./art/LinkBot.astro";
+import CncShop from "./art/CncShop.astro";
+import DropboxKiosk from "./art/DropboxKiosk.astro";
+import GenericPulley from "./art/GenericPulley.astro";
+
+interface Props { art: string }
+const { art } = Astro.props;
+---
+{art === "lab" ? <LabBench /> :
+ art === "belt" ? <BeltSplice /> :
+ art === "rig" ? <TestRig /> :
+ art === "shift" ? <ShiftBox /> :
+ art === "linkbot" ? <LinkBot /> :
+ art === "cnc" ? <CncShop /> :
+ art === "kiosk" ? <DropboxKiosk /> :
+ <GenericPulley />}

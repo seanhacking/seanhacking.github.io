@@ -1,0 +1,45 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCards from "../components/ProjectCards.astro";
+import PostList from "../components/PostList.astro";
+import profile from "../data/profile.json";
+import { getPosts, getProjects } from "../lib/content";
+import { url } from "../lib/url";
+
+const projects = await getProjects();
+const featured = projects.filter((p) => p.data.featured).slice(0, 3);
+const shown = featured.length > 0 ? featured : projects.slice(0, 3);
+const posts = (await getPosts()).slice(0, 3);
+---
+<Base type="profile">
+  <div class="wrap-wide">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">{profile.name}</h1>
+      <p class="headline">{profile.headline}</p>
+      {profile.intro && <p class="intro">{profile.intro}</p>}
+      <ul class="button-row">
+        <li><a class="button primary" href={url("/projects/")}>See projects</a></li>
+        <li><a class="button" href={url("/about/")}>About and CV</a></li>
+        <li><a class="button" href={url("/contact/")}>Contact</a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="projects-title">
+      <div class="section-head">
+        <h2 id="projects-title">Selected projects</h2>
+        <a href={url("/projects/")}>All projects</a>
+      </div>
+      <ProjectCards projects={shown} />
+    </section>
+
+    {posts.length > 0 && (
+      <section aria-labelledby="posts-title">
+        <div class="section-head">
+          <h2 id="posts-title">Latest writing</h2>
+          <a href={url("/blog/")}>All posts</a>
+        </div>
+        <PostList posts={posts} />
+      </section>
+    )}
+  </div>
+</Base>

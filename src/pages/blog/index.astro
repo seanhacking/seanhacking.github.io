@@ -1,0 +1,20 @@
+---
+import Base from "../../layouts/Base.astro";
+import PostList from "../../components/PostList.astro";
+import { collectTags, getPosts } from "../../lib/content";
+import { url } from "../../lib/url";
+
+const posts = await getPosts();
+const tags = collectTags(posts);
+---
+<Base title="Blog" description="Notes on prototyping, testing and building hardware.">
+  <div class="wrap page">
+    <p class="eyebrow">Blog</p>
+    <h1>Writing</h1>
+    <p class="lede">Notes on prototyping, testing and building hardware. <a href={url("/rss.xml")}>RSS feed</a>.</p>
+    <PostList posts={posts} />
+    {tags.length > 0 && (
+      <p class="meta" style="margin-top:2rem"><a href={url("/blog/tags/")}>Browse by tag</a></p>
+    )}
+  </div>
+</Base>

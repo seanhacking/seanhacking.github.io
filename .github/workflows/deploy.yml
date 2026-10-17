@@ -1,0 +1,63 @@
+# Push to main -> build the site -> publish dist/ to the root of the gh-pages branch.
+# Pull-request previews under preview/ on gh-pages are carried over, so a deploy never removes them.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One writer to gh-pages at a time (shared with the preview workflow's publish job).
+concurrency:
+  group: gh-pages
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: "1"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          SITE_BASE: /
+
+      - name: Check links
+        run: npm run check-links
+        env:
+          SITE_BASE: /
+
+      - name: Keep pull-request previews
+        run: |
+          if git ls-remote --exit-code --heads origin gh-pages > /dev/null; then
+            git fetch --depth=1 origin gh-pages
+            if git cat-file -e FETCH_HEAD:preview 2> /dev/null; then
+              git archive FETCH_HEAD preview | tar -x -C dist
+              echo "Kept $(ls dist/preview | wc -l) preview folder(s)."
+            fi
+          fi
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          keep_files: false
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "Deploy ${{ github.sha }}"

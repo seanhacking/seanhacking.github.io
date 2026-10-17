@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 const { label, posts } = Astro.props as { label: string; posts: Post[] };
 ---
 <Base title={`Posts tagged ${label}`} description={`Blog posts tagged ${label}.`}>
-  <div class="wrap page">
+  <div class="wrap-wide page">
     <p class="eyebrow"><a href={url("/blog/tags/")}>Tags</a></p>
     <h1>Tagged “{label}”</h1>
     <PostList posts={posts} />

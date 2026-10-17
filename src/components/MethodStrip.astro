@@ -1,0 +1,87 @@
+---
+// "How I work": sketch, prototype, test, production. Facts from the CV's skills list.
+import { sketchCircle, sketchLine } from "../lib/geometry";
+
+const pencilPath = sketchCircle(60, 46, 24, 21, 0.06);
+// A load wave with a 34-unit period, wide enough to scroll one period seamlessly.
+let wave = "M-54 56";
+for (let x = -54; x < 200; x += 34) wave += `C${x + 8} 56 ${x + 9} 26 ${x + 17} 26S${x + 26} 56 ${x + 34} 56`;
+const stages = [
+  {
+    n: "01",
+    name: "Sketch",
+    text: "A rough sketch, then CAD. 15+ years in SolidWorks, from motion studies to large assemblies.",
+  },
+  {
+    n: "02",
+    name: "Prototype",
+    text: "Same-day CAD to part. 12+ years programming and running CNC: 3–5 axis mills and live-tooling lathes.",
+  },
+  {
+    n: "03",
+    name: "Test",
+    text: "Custom test rigs, accelerated life testing, flight testing, and root-cause analysis when something fails.",
+  },
+  {
+    n: "04",
+    name: "Production",
+    text: "Design for manufacture: injection moulding, die casting, sheet metal, extrusion, and suppliers from prototype to 10K+ units.",
+  },
+];
+---
+<ol class="method" data-anim>
+  {stages.map((s, i) => (
+    <li class="method-step">
+      <div class="method-icon" aria-hidden="true">
+        {i === 0 && (
+          <svg viewBox="0 0 120 90" width="120" height="90">
+            <path class="cl" d="M24 46H96M60 10V82" />
+            <path class="sk ms-sketch" pathLength="1" d={pencilPath} />
+            <path class="sk ms-sketch2" pathLength="1" d={sketchLine([30, 74], [92, 70], 5, 2)} />
+            <g class="ms-pencil" style={`offset-path: path('${pencilPath}')`}>
+              <path class="part solid" d="M0 0l4 -10l26 -14l4 8l-26 14z" />
+              <path class="part" d="M0 0l4 -10l6 4z" />
+            </g>
+          </svg>
+        )}
+        {i === 1 && (
+          <svg viewBox="0 0 120 90" width="120" height="90">
+            <rect class="part part-fill" x="14" y="52" width="92" height="26" rx="2" />
+            <rect class="ms-slot" x="22" y="52" width="76" height="8" />
+            <g class="ms-mill">
+              <rect class="part solid" x="22" y="8" width="20" height="22" rx="2" />
+              <rect class="part" x="28" y="30" width="8" height="28" />
+              <path class="ms-flutes" d="M28 36l8 5M28 44l8 5M28 52l8 5" />
+            </g>
+          </svg>
+        )}
+        {i === 2 && (
+          <svg viewBox="0 0 120 90" width="120" height="90">
+            <path class="ms-wave" d={wave} />
+            <rect class="ms-mask" x="0" y="0" width="14" height="90" />
+            <rect class="ms-mask" x="108" y="0" width="12" height="90" />
+            <path class="iso" d="M14 34H108" />
+            <path class="axis" d="M14 12V78H108" />
+          </svg>
+        )}
+        {i === 3 && (
+          <svg viewBox="0 0 120 90" width="120" height="90">
+            <rect class="part" x="6" y="62" width="108" height="10" rx="5" />
+            {[14, 38, 62, 86, 106].map((x) => <circle class="part-line ms-roller" style={`--o:${x}px 67px`} cx={x} cy="67" r="3.5" />)}
+            <g class="ms-parts">
+              {[-48, -24, 0, 24, 48, 72, 96, 120].map((x) => (
+                <g transform={`translate(${x} 0)`}>
+                  <circle class="part part-fill" cx="12" cy="50" r="10" />
+                  <circle class="part-line" cx="12" cy="50" r="3.5" />
+                </g>
+              ))}
+            </g>
+          </svg>
+        )}
+      </div>
+      <p class="method-n">{s.n}</p>
+      <h3>{s.name}</h3>
+      <p>{s.text}</p>
+    </li>
+  ))}
+</ol>

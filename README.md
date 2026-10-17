@@ -1,6 +1,8 @@
 # seanhacking.github.io
 
-Sean Hacking's personal site: About and CV, Projects, Blog and Contact. Static [Astro](https://astro.build) site, deployed to GitHub Pages at https://seanhacking.github.io by GitHub Actions. No tracking, no analytics, no external scripts or fonts.
+Sean Hacking's personal site: About and CV, Projects, Blog and Contact. Static [Astro](https://astro.build) site, deployed to GitHub Pages at https://seanhacking.github.io by GitHub Actions. No tracking, no analytics, no external scripts or fonts (fonts are self-hosted from `@fontsource` packages).
+
+The look is an engineering drawing that comes alive: paper (light) and blueprint (dark), hand-made animated SVG drawings, and the home page told as seven chapters on one running belt. `DESIGN.md` has the concept, palette, type and motion rules.
 
 The repo stays private, and Pages stays off, until Sean launches the site from the Business Agent Harness.
 
@@ -28,12 +30,36 @@ SITE_BASE=/preview/pr-7/ npm run build && SITE_BASE=/preview/pr-7/ npm run check
 | Projects | `src/content/projects/<slug>.md` | `/projects/<slug>/` |
 | Blog posts | `src/content/blog/<slug>.md` | `/blog/<slug>/` |
 | Images and files for a post or project | `public/media/<slug>/` | `/media/<slug>/<file>` |
-| Layout, nav, OpenGraph tags, theme toggle | `src/layouts/Base.astro` | |
-| Styles (light and dark tokens, print CSS for the CV) | `src/styles/global.css` | |
+| Home-page story chapters (text, which drawing, which project) | `src/data/story.json` | `/` |
+| Project photos (optional, see below) | `public/media/projects/<slug>/` | project pages |
+| Layout, nav, OpenGraph tags, theme and motion switches | `src/layouts/Base.astro` | |
+| Styles (paper and blueprint tokens, print CSS for the CV) | `src/styles/global.css` | |
+| Drawing line styles and animations | `src/styles/art.css` | |
+| The drawings (inline SVG, one component each) | `src/components/art/` | |
+| "How it works" diagrams per project | `src/components/diagrams/`, chosen in `src/components/HowItWorks.astro` | project pages |
 
 `profile.json` fields: `name`, `headline`, `location?`, `email?` (left out on purpose: no email is shown until Sean picks one), `intro?` (home page), `links` (`{label, url}[]`), `about` (short Markdown: paragraphs, `##` headings, `-` lists, bold, italic, links), and `cv` (`summary?`, `experience[]` of `{role, org, start, end, highlights[]}`, `education[]` of `{degree, school, year}`, `skills[]` of `{area, items[]}`).
 
 Project frontmatter: `title`, `summary`, `date`, `tags`, optional `links` (`{label, url}[]`), `heroImage`, `featured` (featured projects show on the home page), and display-only `role` and `period`.
+
+## Project photos
+
+Every project page has a photo slot. To fill it, drop image files (`.jpg`, `.png`, `.webp`, `.avif`) into `public/media/projects/<slug>/`, for example `public/media/projects/veer-belt-drive/01-test-rig.jpg`. They appear on the project page automatically, sorted by file name, in a framed grid (cropped to 4:3, so nothing shifts while they load). Add captions, which are also the alt text, in `captions.json` in the same folder:
+
+```json
+{ "01-test-rig.jpg": "The log-splitter test rig with a belt sample loaded" }
+```
+
+Without a caption the file name is used ("01-test-rig.jpg" becomes "Test rig"), so name files sensibly. A project's `heroImage` frontmatter, if set, is shown first and used for link previews. Until a project has photos, dev and preview builds show a sketched "Photo slot" box in their place; the live site shows nothing. Remember to check `PRIVACY-CHECK.md` before adding photos (no photos of Sean unless he decides so, nothing confidential from Zipline).
+
+Slugs with a slot today: `zipline-dropbox-kiosk`, `veer-belt-drive`, `shift-seamless-belt-transmission`, `lavalock-workholding`.
+
+## Drawings and motion
+
+- Each drawing is an Astro component in `src/components/art/` that outputs one inline SVG, built from small geometry helpers in `src/lib/geometry.ts` (belt paths, toothed pulleys, pencil-sketch circles).
+- New projects get a generic pulley drawing; to give one its own, add a component and a case in `src/components/ProjectArt.astro` (and optionally a diagram in `HowItWorks.astro`).
+- Animations are CSS only and run only when `<html>` has the class `motion`. That class is set before first paint unless the visitor prefers reduced motion or turned motion off with the header switch, so the finished, still drawing is what reduced-motion visitors, no-JavaScript visitors and printers see. A small inline script starts each drawing when it scrolls into view, pauses loops off-screen, and moves the home-page belt with the scroll.
+- Drawings of Zipline and SHIFT carry a note that they are illustrations, not the real design. Keep it that way.
 
 ## Adding a post
 

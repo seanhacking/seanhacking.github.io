@@ -1,0 +1,19 @@
+---
+// A spiral notebook page with pencil sketches of pulleys and a belt: the blog's drawing.
+import { sketchCircle, sketchLine } from "../../lib/geometry";
+const rings = Array.from({ length: 11 }, (_, i) => 36 + i * 22);
+---
+<svg class="art nb" viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="Pencil sketches of two pulleys and a belt on a spiral-bound notebook page.">
+  <rect class="nb-page" x="34" y="20" width="246" height="268" rx="4" />
+  {rings.map((y) => <path class="nb-ring" d={`M22 ${y}h22`} />)}
+  {Array.from({ length: 11 }, (_, i) => <path class="nb-rule" d={`M50 ${52 + i * 22}H270`} />)}
+  <path class="nb-margin" d="M66 20V288" />
+  <path class="sk draw" pathLength="1" style="--d:.2s;--t:.8s" d={sketchCircle(130, 132, 42, 31, 0.05)} />
+  <path class="sk draw" pathLength="1" style="--d:.7s;--t:.5s" d={sketchCircle(224, 132, 20, 17, 0.07)} />
+  <path class="sk draw" pathLength="1" style="--d:.9s;--t:.3s" d={sketchCircle(130, 132, 9, 4, 0.12)} />
+  <path class="sk draw" pathLength="1" style="--d:1.1s;--t:.4s" d={sketchLine([132, 88], [226, 110], 7, 3)} />
+  <path class="sk draw" pathLength="1" style="--d:1.3s;--t:.4s" d={sketchLine([226, 154], [132, 176], 9, 3)} />
+  <text x="86" y="222" class="t-hand fade" style="--d:1.6s">test it first</text>
+  <path class="sk draw" pathLength="1" style="--d:1.8s;--t:.3s" d="M86 228C120 232 160 230 196 226" />
+  <text x="190" y="66" class="t-hand t-red fade" style="--d:2s">rev A</text>
+</svg>

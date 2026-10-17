@@ -14,19 +14,20 @@ const { Content } = await render(post);
 const d = post.data;
 ---
 <Base title={d.title} description={d.description} image={d.heroImage} canonical={d.canonical} type="article" publishedTime={d.date} noindex={d.draft === true}>
-  <article class="wrap page">
-    <p class="eyebrow"><a href={url("/blog/")}>Blog</a></p>
-    {d.draft && <p class="draft-banner">Draft: not published on the live site.</p>}
-    <h1>{d.title}</h1>
-    <p class="meta"><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
-    {d.heroImage && <img class="hero-image" src={url(d.heroImage)} alt="" />}
-    <div class="prose"><Content /></div>
-    {d.tags.length > 0 && (
-      <ul class="tags" aria-label="Tags">
-        {d.tags.map((t) => <li><a class="tag" href={url(`/blog/tags/${slugify(t)}/`)}>{t}</a></li>)}
-      </ul>
-    )}
-    <hr />
-    <p><a href={url("/blog/")}>All posts</a></p>
-  </article>
+  <div class="wrap-wide page">
+    <article class="notebook" style="max-width:52rem;margin:0 auto">
+      <p class="eyebrow"><a href={url("/blog/")}>Notebook</a> · <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
+      {d.draft && <p class="draft-banner">Draft: not published on the live site.</p>}
+      <h1>{d.title}</h1>
+      <p class="lede">{d.description}</p>
+      {d.heroImage && <img class="hero-image" src={url(d.heroImage)} alt="" />}
+      <div class="prose"><Content /></div>
+      {d.tags.length > 0 && (
+        <ul class="tags" aria-label="Tags" style="margin-top:2rem">
+          {d.tags.map((t) => <li><a class="tag" href={url(`/blog/tags/${slugify(t)}/`)}>{t}</a></li>)}
+        </ul>
+      )}
+    </article>
+    <p class="meta" style="max-width:52rem;margin:1.5rem auto 0"><a href={url("/blog/")}>← All posts</a></p>
+  </div>
 </Base>

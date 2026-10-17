@@ -1,0 +1,72 @@
+---
+// Veer: an open belt goes onto the pulleys, the detachable splice closes it, then it runs.
+import { beltPath, polar, toothedOutline } from "../../lib/geometry";
+
+interface Props { label?: string; award?: boolean }
+const { label = "Drawing of a bicycle belt drive: an open belt closes at a detachable splice, then runs between the front and rear pulleys.", award = true } = Astro.props;
+
+const C1: [number, number] = [116, 150];
+const C2: [number, number] = [300, 150];
+const R1 = 58;
+const R2 = 28;
+const P1 = R1 + 6;
+const P2 = R2 + 6;
+const belt = beltPath(C1, P1, C2, P2);
+const span = Math.hypot(belt.t2[0] - belt.t1[0], belt.t2[1] - belt.t1[1]);
+// Gap in the belt, centred on the middle of the top strand (pathLength = 100).
+const sMid = (span / 2 / belt.length) * 100;
+const GAP = 9;
+const o0 = (100 - GAP / 2 - sMid).toFixed(3);
+const o1 = (100 - sMid).toFixed(3);
+const mid: [number, number] = [(belt.t1[0] + belt.t2[0]) / 2, (belt.t1[1] + belt.t2[1]) / 2];
+const ang = (Math.atan2(belt.t2[1] - belt.t1[1], belt.t2[0] - belt.t1[0]) * 180) / Math.PI;
+
+const V = 55;
+const runT = 90 / V;
+const T1 = (2 * Math.PI * P1) / V;
+const T2 = (2 * Math.PI * P2) / V;
+const spokes1 = [0, 1, 2, 3, 4].map((i) => polar(C1[0], C1[1], 34, -90 + i * 72));
+---
+<svg class="art bs" viewBox="0 0 400 280" width="400" height="280" role="img" aria-label={label}>
+  <path class="cl fade" d={`M${C1[0] - R1 - 18} ${C1[1]}H${C2[0] + R2 + 18}M${C1[0]} ${C1[1] - R1 - 18}V${C1[1] + R1 + 18}M${C2[0]} ${C2[1] - R2 - 16}V${C2[1] + R2 + 16}`} />
+
+  <g class="spin" style={`--o:${C1[0]}px ${C1[1]}px;--T:${T1.toFixed(2)}s;--d:2.7s`}>
+    <path class="part draw part-fill" pathLength="1" style="--d:.1s;--t:.9s" d={toothedOutline(C1[0], C1[1], R1, 32, 4)} />
+    {spokes1.map(([x, y], i) => <circle class="part-line draw" pathLength="1" style={`--d:${0.6 + i * 0.05}s;--t:.3s`} cx={x} cy={y} r="13" />)}
+    <circle class="part hub draw" pathLength="1" style="--d:.7s;--t:.4s" cx={C1[0]} cy={C1[1]} r="14" />
+    <circle class="bore" cx={C1[0]} cy={C1[1]} r="5" />
+  </g>
+  <g class="spin" style={`--o:${C2[0]}px ${C2[1]}px;--T:${T2.toFixed(2)}s;--d:2.7s`}>
+    <path class="part draw part-fill" pathLength="1" style="--d:.3s;--t:.7s" d={toothedOutline(C2[0], C2[1], R2, 16, 4)} />
+    <circle class="part hub draw" pathLength="1" style="--d:.8s;--t:.4s" cx={C2[0]} cy={C2[1]} r="10" />
+    <circle class="bore" cx={C2[0]} cy={C2[1]} r="4" />
+  </g>
+
+  <!-- The belt: arrives open, the splice pulls it closed -->
+  <path class="belt bs-belt" pathLength="100" style={`--o0:${o0};--o1:${o1}`} d={belt.d} />
+  <path class="belt-teeth fade run" style={`--d:2.7s;--T:${runT.toFixed(3)}s;--run:-90`} d={belt.d} />
+
+  <g transform={`translate(${mid[0].toFixed(2)} ${mid[1].toFixed(2)}) rotate(${ang.toFixed(2)})`}>
+    <g class="bs-splice">
+      <rect class="part solid" x="-15" y="-6.5" width="30" height="13" rx="3" />
+      <circle class="rivet" cx="-8" cy="0" r="2.2" />
+      <circle class="rivet" cx="8" cy="0" r="2.2" />
+    </g>
+    <circle class="bs-click" cx="0" cy="0" r="16" />
+  </g>
+
+  <text x={mid[0] - 38} y={mid[1] - 52} class="t-hand fade" style="--d:2.3s">V-Link splice</text>
+  <path class="sk draw" pathLength="1" style="--d:2.4s;--t:.4s" d={`M${mid[0] - 6} ${mid[1] - 44}C${mid[0] - 4} ${mid[1] - 32} ${mid[0] - 2} ${mid[1] - 26} ${mid[0]} ${mid[1] - 14}`} />
+  <text x="118" y="258" class="t-mono" text-anchor="middle">FRONT</text>
+  <text x="300" y="258" class="t-mono" text-anchor="middle">REAR</text>
+
+  {award && (
+    <g class="bs-award pop" style="--d:3.1s">
+      <path class="award-ribbon" d="M346 40l-8 30l8-5l5 8l4-29M362 40l8 30l-8-5l-5 8l-4-29" />
+      <circle class="award" cx="354" cy="36" r="17" />
+      <path class="award-star" d="M354 25l3.2 6.6 7.3 1-5.3 5.1 1.3 7.2-6.5-3.4-6.5 3.4 1.3-7.2-5.3-5.1 7.3-1z" />
+      <text x="354" y="96" class="t-mono t-small" text-anchor="middle">EUROBIKE</text>
+      <text x="354" y="106" class="t-mono t-small" text-anchor="middle">STARTUP AWARD</text>
+    </g>
+  )}
+</svg>

@@ -1,5 +1,11 @@
 ---
+import "@fontsource-variable/archivo/wdth.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource-variable/caveat/wght.css";
+import archivoLatin from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url";
 import "../styles/global.css";
+import "../styles/art.css";
 import profile from "../data/profile.json";
 import { absoluteUrl, IS_PREVIEW, url } from "../lib/url";
 
@@ -11,9 +17,11 @@ interface Props {
   type?: "website" | "article" | "profile";
   publishedTime?: Date;
   noindex?: boolean;
+  /** Optional class on <body> for page-specific layouts. */
+  bodyClass?: string;
 }
 
-const { title, description = profile.headline, image, canonical, type = "website", publishedTime, noindex = false } = Astro.props;
+const { title, description = profile.headline, image, canonical, type = "website", publishedTime, noindex = false, bodyClass } = Astro.props;
 const fullTitle = title ? `${title} | ${profile.name}` : `${profile.name}: ${profile.headline}`;
 const pageUrl = absoluteUrl(Astro.url.pathname);
 const canonicalUrl = canonical ? absoluteUrl(canonical) : pageUrl;
@@ -22,13 +30,13 @@ const path = Astro.url.pathname;
 const is404 = /\/404(?:\.html|\/)?$/.test(path);
 
 const nav = [
-  { href: url("/"), label: "Home", match: (p: string) => p === url("/") },
   { href: url("/about/"), label: "About", match: (p: string) => p.startsWith(url("/about/")) || p.startsWith(url("/cv/")) },
   { href: url("/projects/"), label: "Projects", match: (p: string) => p.startsWith(url("/projects/")) },
   { href: url("/blog/"), label: "Blog", match: (p: string) => p.startsWith(url("/blog/")) },
   { href: url("/contact/"), label: "Contact", match: (p: string) => p.startsWith(url("/contact/")) },
 ];
 const normalisedPath = path.endsWith("/") ? path : path + "/";
+const year = new Date().getFullYear();
 ---
 <!doctype html>
 <html lang="en" class="no-js">
@@ -40,8 +48,9 @@ const normalisedPath = path.endsWith("/") ? path : path + "/";
     {!is404 && <link rel="canonical" href={canonicalUrl} />}
     {(IS_PREVIEW || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0c2341" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href={url("/favicon.svg")} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${profile.name}: writing`} href={url("/rss.xml")} />
     {!IS_PREVIEW && <link rel="sitemap" href={url("/sitemap-index.xml")} />}
@@ -60,7 +69,8 @@ const normalisedPath = path.endsWith("/") ? path : path + "/";
     {imageUrl && <meta name="twitter:image" content={imageUrl} />}
 
     <script is:inline>
-      // Theme: follow the system unless the visitor chose light or dark (stored only in their browser).
+      // Before first paint: theme (stored only in this browser) and motion (off for reduced-motion
+      // visitors, or when they switched it off). Drawings are static unless <html> has class "motion".
       (function () {
         var d = document.documentElement;
         d.classList.remove("no-js");
@@ -68,22 +78,43 @@ const normalisedPath = path.endsWith("/") ? path : path + "/";
           var t = localStorage.getItem("theme");
           if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
         } catch (e) {}
+        var still = false;
+        try { still = localStorage.getItem("motion") === "off"; } catch (e) {}
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!still && !reduce) d.classList.add("motion");
       })();
     </script>
   </head>
-  <body>
+  <body class={bodyClass}>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
-      <div class="wrap-wide">
-        <a class="brand" href={url("/")}>{profile.name}</a>
+      <div class="wrap-wide header-row">
+        <a class="brand" href={url("/")} aria-current={normalisedPath === url("/") ? "page" : undefined}>
+          <svg class="brand-mark" viewBox="0 0 48 28" width="48" height="28" aria-hidden="true">
+            <path d="M12 3.5H38M12 24.5H38" />
+            <circle cx="12" cy="14" r="10.5" />
+            <circle cx="38" cy="14" r="5.5" />
+            <circle class="brand-hub" cx="12" cy="14" r="3" />
+          </svg>
+          <span>{profile.name}</span>
+        </a>
         <nav class="nav" aria-label="Main">
           <ul>
             {nav.map((item) => (
               <li><a href={item.href} aria-current={item.match(normalisedPath) ? "page" : undefined}>{item.label}</a></li>
             ))}
           </ul>
-          <button class="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button>
         </nav>
+        <div class="switches">
+          <button class="switch theme-toggle" type="button" aria-pressed="false" title="Dark theme: a blueprint">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" /></svg>
+            <span class="switch-label">Blueprint</span>
+          </button>
+          <button class="switch motion-toggle" type="button" aria-pressed="true" title="Animated drawings">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6" /><path d="M8 2v3M8 11v3M2 8h3M11 8h3" /></svg>
+            <span class="switch-label">Motion</span>
+          </button>
+        </div>
       </div>
     </header>
     <main id="main" tabindex="-1">
@@ -91,33 +122,102 @@ const normalisedPath = path.endsWith("/") ? path : path + "/";
     </main>
     <footer class="site-footer">
       <div class="wrap-wide">
-        <span>&copy; {new Date().getFullYear()} {profile.name}{profile.location ? ` · ${profile.location}` : ""}</span>
-        <ul>
-          {profile.links.map((l) => <li><a href={l.url} rel="me noopener">{l.label}</a></li>)}
-          <li><a href={url("/rss.xml")}>RSS</a></li>
-        </ul>
+        <div class="title-block-footer">
+          <div class="tbf-cell tbf-wide">
+            <span class="tbf-label">Drawn by</span>
+            <span class="tbf-value">{profile.name}</span>
+          </div>
+          {profile.location && (
+            <div class="tbf-cell">
+              <span class="tbf-label">Location</span>
+              <span class="tbf-value">{profile.location}</span>
+            </div>
+          )}
+          <div class="tbf-cell">
+            <span class="tbf-label">Links</span>
+            <ul class="tbf-links">
+              {profile.links.map((l) => <li><a href={l.url} rel="me noopener">{l.label}</a></li>)}
+              <li><a href={url("/rss.xml")}>RSS</a></li>
+            </ul>
+          </div>
+          <div class="tbf-cell">
+            <span class="tbf-label">Rev</span>
+            <span class="tbf-value">&copy; {year}</span>
+          </div>
+        </div>
+        <p class="footer-note">No tracking, no cookies. The drawings are illustrations made for this site.</p>
       </div>
     </footer>
     <script is:inline>
       (function () {
         var d = document.documentElement;
-        var btn = document.querySelector(".theme-toggle");
-        if (!btn) return;
-        var mq = window.matchMedia("(prefers-color-scheme: dark)");
-        function current() { return d.getAttribute("data-theme") || (mq.matches ? "dark" : "light"); }
-        function label() {
-          var next = current() === "dark" ? "light" : "dark";
-          btn.textContent = next === "dark" ? "Dark" : "Light";
-          btn.setAttribute("aria-label", "Switch to " + next + " theme");
+        var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+        // Theme switch: paper (light) and blueprint (dark).
+        var tbtn = document.querySelector(".theme-toggle");
+        function theme() { return d.getAttribute("data-theme") || (mq && mq.matches ? "dark" : "light"); }
+        function showTheme() {
+          if (!tbtn) return;
+          var dark = theme() === "dark";
+          tbtn.setAttribute("aria-pressed", dark ? "true" : "false");
         }
-        label();
-        btn.addEventListener("click", function () {
-          var next = current() === "dark" ? "light" : "dark";
+        if (tbtn) tbtn.addEventListener("click", function () {
+          var next = theme() === "dark" ? "light" : "dark";
           d.setAttribute("data-theme", next);
           try { localStorage.setItem("theme", next); } catch (e) {}
-          label();
+          showTheme();
         });
-        mq.addEventListener && mq.addEventListener("change", label);
+        if (mq && mq.addEventListener) mq.addEventListener("change", showTheme);
+        showTheme();
+
+        // Motion switch: stops every animation and leaves the finished drawings.
+        var mbtn = document.querySelector(".motion-toggle");
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function showMotion() {
+          if (!mbtn) return;
+          var on = d.classList.contains("motion");
+          mbtn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+        if (mbtn) mbtn.addEventListener("click", function () {
+          var on = !d.classList.contains("motion");
+          d.classList.toggle("motion", on);
+          try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
+          showMotion();
+          if (on) observe();
+        });
+        showMotion();
+        if (reduce && mbtn) mbtn.hidden = true;
+
+        // Drawings run only while on screen: elements marked data-anim get "is-live" while visible.
+        var io = null;
+        function observe() {
+          var els = document.querySelectorAll("[data-anim]");
+          if (!("IntersectionObserver" in window)) {
+            for (var i = 0; i < els.length; i++) els[i].classList.add("is-live");
+            return;
+          }
+          if (io) return;
+          io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { e.target.classList.toggle("is-live", e.isIntersecting); });
+          }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+          for (var j = 0; j < els.length; j++) io.observe(els[j]);
+        }
+        if (d.classList.contains("motion")) observe();
+
+        // The story belt moves with the scroll position.
+        var belt = document.querySelector("[data-belt]");
+        if (belt) {
+          var ticking = false;
+          var update = function () {
+            ticking = false;
+            if (!d.classList.contains("motion")) return;
+            belt.style.setProperty("--sp", String(Math.round(window.scrollY)));
+          };
+          window.addEventListener("scroll", function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+          }, { passive: true });
+          update();
+        }
       })();
     </script>
   </body>

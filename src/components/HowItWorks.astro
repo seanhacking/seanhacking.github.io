@@ -1,0 +1,27 @@
+---
+// The "how it works" diagram for a project, when its write-up supports one.
+import VeerFlow from "./diagrams/VeerFlow.astro";
+import ShiftPath from "./diagrams/ShiftPath.astro";
+import ZiplineLoop from "./diagrams/ZiplineLoop.astro";
+import LavaLockBars from "./diagrams/LavaLockBars.astro";
+
+interface Props { slug: string }
+const { slug } = Astro.props;
+const titles: Record<string, string> = {
+  "veer-belt-drive": "How the system came together",
+  "shift-seamless-belt-transmission": "From idea to granted patent",
+  "zipline-dropbox-kiosk": "The loop, nine times over",
+  "lavalock-workholding": "What LavaLock changed",
+};
+const title = titles[slug];
+---
+{title && (
+  <section class="how" aria-labelledby="how-title">
+    <p class="eyebrow">How it works</p>
+    <h2 id="how-title">{title}</h2>
+    {slug === "veer-belt-drive" && <VeerFlow />}
+    {slug === "shift-seamless-belt-transmission" && <ShiftPath />}
+    {slug === "zipline-dropbox-kiosk" && <ZiplineLoop />}
+    {slug === "lavalock-workholding" && <LavaLockBars />}
+  </section>
+)}

@@ -1,0 +1,21 @@
+---
+// SHIFT: from invention to granted patent to a design for manufacture. Facts from the write-up.
+const steps = [
+  { title: "Invented", text: "A seamless belt transmission that shifts under load, without a clutch." },
+  { title: "Patent written", text: "I wrote the application myself." },
+  { title: "Prosecuted", text: "I took it through prosecution myself, with no rejections." },
+  { title: "Granted", text: "In the US and internationally." },
+  { title: "Designed for manufacture", text: "Against a unit-cost target." },
+];
+---
+<ol class="path" data-anim>
+  {steps.map((s, i) => (
+    <li class="path-step" style={`--d:${(0.2 + i * 0.25).toFixed(2)}s`}>
+      <span class="path-node" aria-hidden="true">{String(i + 1)}</span>
+      <div>
+        <h3>{s.title}</h3>
+        <p>{s.text}</p>
+      </div>
+    </li>
+  ))}
+</ol>

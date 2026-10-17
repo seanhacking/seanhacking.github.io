@@ -1,0 +1,83 @@
+{
+  "intro": "Seven drawings, one belt. Scroll and it runs.",
+  "chapters": [
+    {
+      "id": "lab",
+      "stage": "Build",
+      "when": "2014–2015",
+      "where": "Cambrian Genomics",
+      "title": "Robots that handle DNA",
+      "text": "I studied bioengineering at UC Santa Cruz, then built and programmed liquid-handling robots for synthetic DNA manufacturing. I also invented the first process for recovering monoclonal DNA clusters from Illumina flow cells.",
+      "art": "lab",
+      "artTitle": "Liquid handler, elevation"
+    },
+    {
+      "id": "belt",
+      "stage": "Invent",
+      "when": "2016",
+      "where": "Veer",
+      "title": "A belt that opens and closes",
+      "text": "I founded Veer to make belt drivetrains for bikes. I invented Split Belt Pro and the V-Link detachable belt splice, which created the first belt-drive conversion category for cycling and won the Eurobike Startup Award, competing against Gates.",
+      "art": "belt",
+      "artTitle": "Belt drive with V-Link splice",
+      "project": "veer-belt-drive"
+    },
+    {
+      "id": "rig",
+      "stage": "Test",
+      "when": "Veer",
+      "where": "Veer",
+      "title": "The rig that found the failure",
+      "text": "Our early belts failed. In one week I built a drivetrain test suite that goes beyond ISO standards, including a universal testing machine made from a log splitter and a load cell. It found the root cause, and the redesigned belt lasts 20,000 miles.",
+      "art": "rig",
+      "artTitle": "Home-made testing machine",
+      "project": "veer-belt-drive"
+    },
+    {
+      "id": "shift",
+      "stage": "Patent",
+      "when": "Veer",
+      "where": "Veer",
+      "title": "Shifting under load",
+      "text": "SHIFT is a seamless belt transmission that shifts under load, without a clutch. I invented it, wrote and prosecuted the patent myself to grant in the US and internationally with no rejections, and designed it for manufacture.",
+      "art": "shift",
+      "artTitle": "SHIFT, schematic",
+      "note": "Schematic, not the patented mechanism",
+      "project": "shift-seamless-belt-transmission"
+    },
+    {
+      "id": "linkbot",
+      "stage": "Automate",
+      "when": "Veer",
+      "where": "Veer",
+      "title": "Ten minutes down to thirty seconds",
+      "text": "Putting a belt together took about 10 minutes. I designed and programmed LinkBot, an automated belt-assembly tool that does it in under 30 seconds, with fewer than 1 fault per 4,000 rivets.",
+      "art": "linkbot",
+      "artTitle": "LinkBot, side view",
+      "project": "veer-belt-drive"
+    },
+    {
+      "id": "shop",
+      "stage": "Prototype",
+      "when": "2024–2025",
+      "where": "Form Robotics",
+      "title": "A shop for same-day parts",
+      "text": "I built a prototyping shop around five CNC machines, set up for same-day design-to-testable-part, and invented the LavaLock universal workholding system: 91% less setup time and 50% lower prototype cost. We machined next-day prototypes for aerospace and robotics customers, including Zipline.",
+      "art": "cnc",
+      "artTitle": "Pocketing job on LavaLock",
+      "project": "lavalock-workholding"
+    },
+    {
+      "id": "fly",
+      "stage": "Fly",
+      "when": "2025–2026",
+      "where": "Zipline",
+      "title": "Nine prototypes, all flown",
+      "text": "On Zipline's New Products team I took the second-generation Dropbox, a robotic drone-loading and package-pickup kiosk, from rough sketches through 9 flight-tested prototypes across 3 generations. The results: more than 10x improvement in key package-pickup reliability metrics, and about 3x lower cost than the current production generation.",
+      "art": "kiosk",
+      "artTitle": "Drone kiosk",
+      "note": "Illustration, not the actual design",
+      "project": "zipline-dropbox-kiosk"
+    }
+  ]
+}

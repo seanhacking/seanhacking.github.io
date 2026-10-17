@@ -1,0 +1,60 @@
+---
+// Real photos for a project. Drop image files into public/media/projects/<slug>/ and they show up here,
+// sorted by file name. Optional captions (also used as alt text) go in captions.json in the same folder:
+//   { "rig-front.jpg": "The test rig with a belt sample loaded" }
+// Without photos, dev and preview builds show a sketched placeholder; the live site shows nothing.
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+import { IS_PREVIEW, url } from "../lib/url";
+
+interface Props { slug: string; title: string; heroImage?: string }
+const { slug, title, heroImage } = Astro.props;
+
+const dir = join(process.cwd(), "public", "media", "projects", slug);
+const files = existsSync(dir) ? readdirSync(dir).filter((f) => /\.(jpe?g|png|webp|avif|gif)$/i.test(f)).sort() : [];
+let captions: Record<string, string> = {};
+try {
+  if (existsSync(join(dir, "captions.json"))) captions = JSON.parse(readFileSync(join(dir, "captions.json"), "utf8"));
+} catch {
+  captions = {};
+}
+const humanise = (f: string) =>
+  f.replace(/\.[a-z0-9]+$/i, "").replace(/^\d+[-_ ]*/, "").replace(/[-_]+/g, " ").trim().replace(/^./, (c) => c.toUpperCase());
+
+const photos = [
+  ...(heroImage ? [{ src: heroImage, caption: captions[heroImage.split("/").pop() ?? ""] ?? `${title}: photo` }] : []),
+  ...files
+    .filter((f) => !heroImage || !heroImage.endsWith(`/${f}`))
+    .map((f) => ({ src: `/media/projects/${slug}/${f}`, caption: captions[f] ?? (humanise(f) || `${title}: photo`) })),
+];
+const showSlot = photos.length === 0 && (IS_PREVIEW || import.meta.env.DEV);
+---
+{photos.length > 0 && (
+  <section class="photos" aria-label={`Photos: ${title}`}>
+    <ul class:list={["photo-grid", { single: photos.length === 1 }]}>
+      {photos.map((p) => (
+        <li>
+          <figure class="photo">
+            <div class="photo-frame"><img src={url(p.src)} alt={p.caption} loading="lazy" decoding="async" /></div>
+            <figcaption>{p.caption}</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+{showSlot && (
+  <aside data-photo-slot={slug} class="photo-slot" aria-label="Photo slot (only shown in previews)">
+    <svg viewBox="0 0 220 140" width="220" height="140" aria-hidden="true">
+      <rect class="slot-tape" x="18" y="6" width="44" height="14" transform="rotate(-8 40 13)" />
+      <rect class="slot-tape" x="160" y="6" width="44" height="14" transform="rotate(7 182 13)" />
+      <rect class="slot-frame" x="12" y="14" width="196" height="118" rx="3" />
+      <path class="sk" d="M30 116L82 62L114 94L140 72L192 116" />
+      <circle class="sk" cx="160" cy="44" r="12" />
+    </svg>
+    <div>
+      <p class="slot-title">Photo slot</p>
+      <p>Add photos of the real hardware to <code>public/media/projects/{slug}/</code>. Captions go in <code>captions.json</code>. This box only shows in previews.</p>
+    </div>
+  </aside>
+)}

@@ -1,0 +1,13 @@
+---
+// A drawing sheet: border with zone ticks, the drawing, and a caption strip like a title block.
+interface Props { title: string; sheet?: string; note?: string; class?: string; eager?: boolean }
+const { title, sheet, note, class: cls } = Astro.props;
+---
+<figure class:list={["art-frame", cls]} data-anim>
+  <div class="art-canvas"><slot /></div>
+  <figcaption class="art-cap">
+    {sheet && <span class="art-sheet">SHT {sheet}</span>}
+    <span class="art-title">{title}</span>
+    {note && <span class="art-note">{note}</span>}
+  </figcaption>
+</figure>

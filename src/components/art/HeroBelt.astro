@@ -1,0 +1,121 @@
+---
+// The home-page hero: a belt drive that goes from pencil sketch to CAD drawing to running.
+import { beltPath, revCloud, sketchCircle, sketchLine, toothedOutline, polar } from "../../lib/geometry";
+
+const C1: [number, number] = [196, 214];
+const C2: [number, number] = [468, 214];
+const R1 = 108; // root radius, big pulley
+const R2 = 54; // root radius, small pulley (2:1)
+const TOOTH = 5;
+const P1 = R1 + 7; // belt pitch radius
+const P2 = R2 + 7;
+const belt = beltPath(C1, P1, C2, P2);
+const sketchBelt = beltPath(C1, P1 + 2, C2, P2 + 2);
+
+// Belt speed in drawing units per second; every pulley turns at the matching rate.
+const V = 60;
+const RUN = 90; // one belt-teeth cycle = 9 units, so 90 loops seamlessly
+const runT = RUN / V;
+const T1 = (2 * Math.PI * P1) / V;
+const T2 = (2 * Math.PI * P2) / V;
+
+const holes1 = [0, 1, 2, 3, 4].map((i) => polar(C1[0], C1[1], 64, -90 + i * 72));
+const holes2 = [0, 1, 2, 3].map((i) => polar(C2[0], C2[1], 31, -45 + i * 90));
+const [lx1, ly1] = polar(C1[0], C1[1], R1 + TOOTH, 222);
+const [lx2, ly2] = polar(C2[0], C2[1], R2 + TOOTH, 50);
+---
+<figure class="hero-art" data-anim>
+  <svg viewBox="0 0 660 440" width="660" height="440" role="img" aria-labelledby="hero-art-title">
+    <title id="hero-art-title">Drawing of a belt drive: a large and a small toothed pulley joined by a belt. It starts as a pencil sketch, the CAD lines draw over it, and then the belt runs.</title>
+
+    <!-- Sheet frame with zone marks -->
+    <g class="frame">
+      <rect x="6" y="6" width="648" height="428" rx="2" class="frame-outer" />
+      <rect x="20" y="20" width="620" height="400" class="frame-inner" />
+      {[1, 2, 3, 4].map((n, i) => (
+        <>
+          <text x={20 + 77.5 + i * 155} y="16" class="t-zone">{n}</text>
+          <path d={`M${20 + 155 * (i + 1)} 6V20`} class="frame-tick" />
+        </>
+      ))}
+      {["A", "B", "C"].map((l, i) => (
+        <>
+          <text x="13" y={20 + 66 + i * 133} class="t-zone">{l}</text>
+          <path d={`M6 ${20 + 133.3 * (i + 1)}H20`} class="frame-tick" />
+        </>
+      ))}
+    </g>
+
+    <!-- 1. Pencil sketch -->
+    <g class="hb-sketch">
+      <path class="sk draw" pathLength="1" style="--d:.15s;--t:.9s" d={sketchCircle(C1[0], C1[1], R1 + 4, 7, 0.035)} />
+      <path class="sk draw" pathLength="1" style="--d:.55s;--t:.7s" d={sketchCircle(C2[0], C2[1], R2 + 3, 11, 0.05)} />
+      <path class="sk draw" pathLength="1" style="--d:.85s;--t:.4s" d={sketchCircle(C1[0], C1[1], 30, 3, 0.08)} />
+      <path class="sk draw" pathLength="1" style="--d:.95s;--t:.3s" d={sketchCircle(C2[0], C2[1], 16, 5, 0.1)} />
+      <path class="sk draw" pathLength="1" style="--d:1.05s;--t:.45s" d={sketchLine(sketchBelt.t1, sketchBelt.t2, 4, 4)} />
+      <path class="sk draw" pathLength="1" style="--d:1.25s;--t:.45s" d={sketchLine(sketchBelt.b2, sketchBelt.b1, 9, 4)} />
+      <text x="40" y="70" class="t-hand fade" style="--d:1.1s">napkin sketch</text>
+      <path class="sk draw" pathLength="1" style="--d:1.3s;--t:.35s" d="M92 78 C 100 98, 104 104, 112 116 M104 113 L112 116 L111 107" />
+    </g>
+
+    <!-- 2. CAD: centre lines and dimensions -->
+    <g class="hb-cad">
+      <path class="cl fade" style="--d:1.35s" d={`M${C1[0] - R1 - 26} ${C1[1]}H${C2[0] + R2 + 26}`} />
+      <path class="cl fade" style="--d:1.45s" d={`M${C1[0]} ${C1[1] - R1 - 26}V${C1[1] + R1 + 26}`} />
+      <path class="cl fade" style="--d:1.5s" d={`M${C2[0]} ${C2[1] - R2 - 22}V${C2[1] + R2 + 22}`} />
+
+      <g class="dims">
+        <path class="dim-line draw" pathLength="1" style="--d:2.3s;--t:.5s" d={`M${C1[0]} ${C1[1] - R1 - 34}V44 M${C2[0]} ${C2[1] - R2 - 30}V44`} />
+        <path class="dim-line draw" pathLength="1" style="--d:2.5s;--t:.6s" d={`M${C1[0]} 52H${C2[0]}`} />
+        <path class="dim-arrow fade" style="--d:2.9s" d={`M${C1[0]} 52l10 -3.5v7z M${C2[0]} 52l-10 -3.5v7z`} />
+        <text x={(C1[0] + C2[0]) / 2} y="46" class="t-dim fade" style="--d:2.95s" text-anchor="middle">C–C</text>
+        <path class="dim-line draw" pathLength="1" style="--d:2.6s;--t:.45s" d={`M${lx1} ${ly1}L${lx1 - 34} ${ly1 + 34}H${lx1 - 70}`} />
+        <text x={lx1 - 70} y={ly1 + 30} class="t-dim fade" style="--d:3s">Ø D1</text>
+        <path class="dim-line draw" pathLength="1" style="--d:2.7s;--t:.45s" d={`M${lx2} ${ly2}L${lx2 + 40} ${ly2 + 40}H${lx2 + 84}`} />
+        <text x={lx2 + 50} y={ly2 + 36} class="t-dim fade" style="--d:3.05s">Ø D2</text>
+      </g>
+    </g>
+
+    <!-- 3. Parts: pulleys (they turn once the belt runs) -->
+    <g class="spin" style={`--o:${C1[0]}px ${C1[1]}px;--T:${T1.toFixed(2)}s;--d:3.6s`}>
+      <path class="part draw part-fill" pathLength="1" style="--d:1.55s;--t:1s" d={toothedOutline(C1[0], C1[1], R1, 40, TOOTH)} />
+      <circle class="part-line draw" pathLength="1" style="--d:1.9s;--t:.6s" cx={C1[0]} cy={C1[1]} r={R1 - 12} />
+      {holes1.map(([x, y], i) => <circle class="part-line draw" pathLength="1" style={`--d:${2.05 + i * 0.06}s;--t:.4s`} cx={x} cy={y} r="20" />)}
+      <circle class="part draw hub" pathLength="1" style="--d:2.1s;--t:.5s" cx={C1[0]} cy={C1[1]} r="28" />
+      <circle class="bore fade" style="--d:2.4s" cx={C1[0]} cy={C1[1]} r="11" />
+      <path class="key fade" style="--d:2.45s" d={`M${C1[0] - 3} ${C1[1] - 15}h6v5h-6z`} />
+    </g>
+    <g class="spin" style={`--o:${C2[0]}px ${C2[1]}px;--T:${T2.toFixed(2)}s;--d:3.6s`}>
+      <path class="part draw part-fill" pathLength="1" style="--d:1.75s;--t:.8s" d={toothedOutline(C2[0], C2[1], R2, 20, TOOTH)} />
+      {holes2.map(([x, y], i) => <circle class="part-line draw" pathLength="1" style={`--d:${2.15 + i * 0.06}s;--t:.35s`} cx={x} cy={y} r="9" />)}
+      <circle class="part draw hub" pathLength="1" style="--d:2.2s;--t:.4s" cx={C2[0]} cy={C2[1]} r="15" />
+      <circle class="bore fade" style="--d:2.45s" cx={C2[0]} cy={C2[1]} r="6" />
+    </g>
+    <path class="cm fade" style="--d:2.5s" d={`M${C1[0] - 8} ${C1[1]}h16M${C1[0]} ${C1[1] - 8}v16M${C2[0] - 6} ${C2[1]}h12M${C2[0]} ${C2[1] - 6}v12`} />
+
+    <!-- 4. The belt: drawn on, then running -->
+    <path class="belt draw" pathLength="1" style="--d:2.9s;--t:.9s;--e:cubic-bezier(.5,0,.2,1)" d={belt.d} />
+    <path class="belt-teeth fade run" style={`--d:3.6s;--T:${runT.toFixed(3)}s;--run:-${RUN}`} d={belt.d} />
+
+    <!-- 5. Redline: revision cloud and note -->
+    <g class="redline">
+      <path class="rev draw" pathLength="1" style="--d:4s;--t:.7s" d={revCloud(C2[0], C2[1], R2 + 34, R2 + 30, 14)} />
+      <path class="rev-tri pop" style={`--d:4.55s;--o:${C2[0] + 76}px ${C2[1] - 86}px`} d={`M${C2[0] + 66} ${C2[1] - 78}l10 -18l10 18z`} />
+      <text x={C2[0] + 76} y={C2[1] - 81} class="t-rev pop" style="--d:4.6s" text-anchor="middle">B</text>
+      <text x={C2[0] + 92} y={C2[1] - 82} class="t-hand t-red fade" style="--d:4.7s">2 : 1</text>
+    </g>
+
+    <!-- Title block -->
+    <g class="title-block">
+      <path class="tb" d="M380 362H640M380 391H640M380 362V420M520 391V420M580 391V420" />
+      <text x="388" y="373" class="t-tb-label">TITLE</text>
+      <text x="388" y="385" class="t-tb">BELT DRIVE, GENERAL ARRANGEMENT</text>
+      <text x="388" y="402" class="t-tb-label">DRAWN</text>
+      <text x="388" y="414" class="t-tb">S. HACKING</text>
+      <text x="528" y="402" class="t-tb-label">SCALE</text>
+      <text x="528" y="414" class="t-tb">NTS</text>
+      <text x="588" y="402" class="t-tb-label">SHEET</text>
+      <text x="588" y="414" class="t-tb">1 / 8</text>
+    </g>
+  </svg>
+</figure>

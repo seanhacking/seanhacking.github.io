@@ -6,7 +6,7 @@ import { url } from "../../../lib/url";
 const tags = collectTags(await getPosts());
 ---
 <Base title="Tags" description="Blog posts by tag.">
-  <div class="wrap page">
+  <div class="wrap-wide page">
     <p class="eyebrow"><a href={url("/blog/")}>Blog</a></p>
     <h1>Tags</h1>
     {tags.length === 0 ? (

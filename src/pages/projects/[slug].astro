@@ -1,36 +1,84 @@
 ---
 import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import ProjectArt from "../../components/ProjectArt.astro";
+import HowItWorks from "../../components/HowItWorks.astro";
+import ProjectPhotos from "../../components/ProjectPhotos.astro";
+import ArtFrame from "../../components/ArtFrame.astro";
+import StoryArt from "../../components/StoryArt.astro";
+import story from "../../data/story.json";
 import { getProjects, type Project } from "../../lib/content";
 import { url } from "../../lib/url";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
-  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, prev: projects[i - 1], next: projects[i + 1], index: i, total: projects.length },
+  }));
 }
 
-const { project } = Astro.props as { project: Project };
+const { project, prev, next, index, total } = Astro.props as { project: Project; prev?: Project; next?: Project; index: number; total: number };
 const { Content } = await render(project);
 const d = project.data;
+// More drawings from the home-page story that belong to this project (besides its main drawing).
+const mainArt: Record<string, string> = { "veer-belt-drive": "belt", "shift-seamless-belt-transmission": "shift", "zipline-dropbox-kiosk": "kiosk", "lavalock-workholding": "cnc" };
+type Chapter = (typeof story.chapters)[number] & { note?: string; project?: string };
+const extras = (story.chapters as Chapter[]).filter((c) => c.project === project.id && c.art !== mainArt[project.id]);
 ---
 <Base title={d.title} description={d.summary} image={d.heroImage} type="article">
-  <article class="wrap page">
-    <p class="eyebrow"><a href={url("/projects/")}>Projects</a></p>
-    <h1>{d.title}</h1>
-    <p class="meta">{d.period ?? d.date.getUTCFullYear()}{d.role ? ` · ${d.role}` : ""}</p>
-    <p class="lede">{d.summary}</p>
-    {d.heroImage && <img class="hero-image" src={url(d.heroImage)} alt="" />}
-    <div class="prose"><Content /></div>
-    {d.links && d.links.length > 0 && (
-      <>
-        <h2>Links</h2>
-        <ul>{d.links.map((l) => <li><a href={url(l.url)}>{l.label}</a></li>)}</ul>
-      </>
-    )}
-    {d.tags.length > 0 && (
-      <ul class="tags" aria-label="Tags">{d.tags.map((t) => <li class="tag">{t}</li>)}</ul>
-    )}
-    <hr />
-    <p><a href={url("/projects/")}>All projects</a></p>
+  <article class="wrap-wide page">
+    <header class="project-hero">
+      <div>
+        <p class="eyebrow"><a href={url("/projects/")}>Projects</a> · Sheet {index + 1} of {total}</p>
+        <h1>{d.title}</h1>
+        <p class="lede">{d.summary}</p>
+        <dl class="spec">
+          {d.role && (<><dt>Role</dt><dd>{d.role}</dd></>)}
+          <dt>Period</dt><dd>{d.period ?? d.date.getUTCFullYear()}</dd>
+          {d.tags.length > 0 && (
+            <>
+              <dt>Tags</dt>
+              <dd><ul class="tags" aria-label="Tags">{d.tags.map((t) => <li class="tag">{t}</li>)}</ul></dd>
+            </>
+          )}
+        </dl>
+      </div>
+      <ProjectArt slug={project.id} title={d.title} sheet={`${index + 1} / ${total}`} />
+    </header>
+
+    <div class:list={["project-body", { "has-aside": true }]}>
+      <div>
+        <div class="prose"><Content /></div>
+        {d.links && d.links.length > 0 && (
+          <section class="prose">
+            <h2>Links</h2>
+            <ul>{d.links.map((l) => <li><a href={url(l.url)}>{l.label}</a></li>)}</ul>
+          </section>
+        )}
+      </div>
+      <aside class="project-aside" aria-label="Drawings and diagrams">
+        {extras.length > 0
+          ? extras.map((c) => (
+              <ArtFrame title={c.artTitle} note={c.note}>
+                <StoryArt art={c.art} />
+              </ArtFrame>
+            ))
+          : <HowItWorks slug={project.id} />}
+      </aside>
+    </div>
+    {extras.length > 0 && <HowItWorks slug={project.id} />}
+    <ProjectPhotos slug={project.id} title={d.title} heroImage={d.heroImage} />
+
+    <nav class="pager" aria-label="More projects">
+      {prev && (
+        <a class="prev" href={url(`/projects/${prev.id}/`)}><span class="pager-label">← Previous sheet</span><span class="pager-title">{prev.data.title}</span></a>
+      )}
+      {next ? (
+        <a class="next" href={url(`/projects/${next.id}/`)}><span class="pager-label">Next sheet →</span><span class="pager-title">{next.data.title}</span></a>
+      ) : (
+        <a class="next" href={url("/projects/")}><span class="pager-label">Back to →</span><span class="pager-title">All projects</span></a>
+      )}
+    </nav>
   </article>
 </Base>

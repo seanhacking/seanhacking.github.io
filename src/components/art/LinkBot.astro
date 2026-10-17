@@ -1,0 +1,43 @@
+---
+// LinkBot: an automated belt-assembly tool. The fixture steps the splice under the press, one rivet at a time.
+interface Props { label?: string }
+const { label = "Drawing of LinkBot, an automated belt-assembly tool: a press sets the rivets in a belt splice one at a time. Belt installation went from about 10 minutes to under 30 seconds." } = Astro.props;
+const rivets = [0, 1, 2, 3].map((i) => 150 + i * 30);
+---
+<svg class="art lk" viewBox="0 0 400 280" width="400" height="280" role="img" aria-label={label}>
+  <!-- machine frame -->
+  <path class="ground" d="M20 242H380" />
+  <rect class="part draw" pathLength="1" style="--t:.7s" x="40" y="196" width="320" height="46" rx="3" />
+  <path class="part-line draw" pathLength="1" style="--d:.2s;--t:.6s" d="M120 30H210V60M120 30V196" />
+  <rect class="part solid draw" pathLength="1" style="--d:.35s;--t:.5s" x="104" y="26" width="140" height="30" rx="4" />
+  <text x="174" y="45" class="t-mono t-small t-inv" text-anchor="middle">LINKBOT</text>
+
+  <!-- press head (stamps once per second) -->
+  <g class="lk-press">
+    <rect class="part" x="198" y="56" width="24" height="64" rx="2" />
+    <path class="part solid" d="M203 120H217L214 136H206Z" />
+  </g>
+  <path class="cl" d="M210 50V196" />
+
+  <!-- fixture carriage with the two belt ends and the splice -->
+  <g class="lk-carriage">
+    <rect class="part" x="96" y="176" width="220" height="20" rx="2" />
+    <rect class="lk-belt" x="60" y="162" width="152" height="12" rx="2" />
+    <rect class="lk-belt" x="212" y="162" width="152" height="12" rx="2" />
+    <path class="lk-teeth" d="M64 174h292" />
+    <rect class="part lk-plate" x="136" y="154" width="104" height="10" rx="2" />
+    {rivets.map((x, i) => (
+      <>
+        <circle class="lk-hole" cx={x + 6} cy="159" r="3" />
+        <circle class={`lk-rivet lk-r${i}`} cx={x + 6} cy="159" r="4.2" />
+      </>
+    ))}
+  </g>
+
+  <!-- the result -->
+  <text x="300" y="86" class="t-hand fade" style="--d:.6s" text-anchor="middle"><tspan class="lk-strike">10 min</tspan></text>
+  <path class="lk-x draw" pathLength="1" style="--d:1.1s;--t:.3s" d="M272 80L330 74" />
+  <text x="300" y="120" class="t-big-num fade" style="--d:1.4s" text-anchor="middle">&lt; 30 s</text>
+  <text x="300" y="138" class="t-mono t-small" text-anchor="middle">PER BELT</text>
+  <text x="200" y="268" class="t-mono t-small" text-anchor="middle">&lt; 1 FAULT PER 4,000 RIVETS</text>
+</svg>

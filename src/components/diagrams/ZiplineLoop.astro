@@ -1,0 +1,44 @@
+---
+// Zipline Dropbox: the build-test loop that ran nine times, and where Sean's scope sat.
+const R = 84, CX = 170, CY = 118;
+const nodes = [
+  { a: -90, t: "Sketch" },
+  { a: 0, t: "Prototype" },
+  { a: 90, t: "Lab test" },
+  { a: 180, t: "Flight test" },
+];
+const pt = (a: number, r = R) => [CX + r * Math.cos((a * Math.PI) / 180), CY + r * Math.sin((a * Math.PI) / 180)] as const;
+const loop = `M${CX} ${CY - R}A${R} ${R} 0 1 1 ${CX - 0.01} ${CY - R}Z`;
+---
+<div class="zl" data-anim>
+  <svg class="zl-loop" viewBox="0 0 340 240" width="340" height="240" role="img" aria-label="The loop: sketch, prototype, lab test, flight test, and back to sketch. It ran nine times across three generations.">
+    <circle class="zl-ring" cx={CX} cy={CY} r={R} />
+    {[-45, 45, 135, 225].map((a) => {
+      const [x, y] = pt(a);
+      return <path class="zl-arrow" transform={`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a + 90})`} d="M-5 -5L3 0L-5 5" />;
+    })}
+    <circle class="zl-dot" r="5" style={`offset-path: path('${loop}')`} />
+    {nodes.map((n) => {
+      const [x, y] = pt(n.a);
+      const tx = x + (n.a === 0 ? 13 : n.a === 180 ? -13 : 0);
+      const ty = y + (n.a === -90 ? -14 : n.a === 90 ? 24 : 4);
+      const anchor = n.a === 0 ? "start" : n.a === 180 ? "end" : "middle";
+      return (
+        <g>
+          <circle class="zl-node" cx={x} cy={y} r="7" />
+          <text x={tx} y={ty} class="t-mono t-small" text-anchor={anchor}>{n.t.toUpperCase()}</text>
+        </g>
+      );
+    })}
+    <text x={CX} y={CY + 8} class="zl-x" text-anchor="middle">×9</text>
+    <text x={CX} y={CY + 28} class="t-mono t-small" text-anchor="middle">3 GENERATIONS</text>
+  </svg>
+  <div class="zl-scope">
+    <h3>Where my work sat</h3>
+    <ol>
+      <li><strong>Early architecture.</strong> Sole R&amp;D engineer, starting from rough sketches.</li>
+      <li><strong>The design team.</strong> Owned every system that interacts with the active package: the Droid and Pod.</li>
+      <li><strong>Toward production.</strong> Lab and flight testing on tight cycles, with electrical, software, NPI and supply chain.</li>
+    </ol>
+  </div>
+</div>

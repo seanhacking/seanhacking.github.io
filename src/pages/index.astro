@@ -1,45 +1,123 @@
 ---
 import Base from "../layouts/Base.astro";
+import HeroBelt from "../components/art/HeroBelt.astro";
+import MethodStrip from "../components/MethodStrip.astro";
+import Story from "../components/Story.astro";
 import ProjectCards from "../components/ProjectCards.astro";
 import PostList from "../components/PostList.astro";
+import WorkingTogether from "../components/WorkingTogether.astro";
 import profile from "../data/profile.json";
+import story from "../data/story.json";
 import { getPosts, getProjects } from "../lib/content";
 import { url } from "../lib/url";
 
 const projects = await getProjects();
-const featured = projects.filter((p) => p.data.featured).slice(0, 3);
+const featured = projects.filter((p) => p.data.featured);
 const shown = featured.length > 0 ? featured : projects.slice(0, 3);
 const posts = (await getPosts()).slice(0, 3);
+
+// The headline, with its three stages set in three hands: pencil, CAD, production stamp.
+const stages: [string, string][] = [["rough sketch", "w-sketch"], ["tested prototype", "w-proto"], ["production", "w-prod"]];
+const pieces: { text: string; cls?: string }[] = [];
+let rest = profile.headline;
+for (const [phrase, cls] of stages) {
+  const at = rest.indexOf(phrase);
+  if (at < 0) continue;
+  pieces.push({ text: rest.slice(0, at) }, { text: phrase, cls });
+  rest = rest.slice(at + phrase.length);
+}
+pieces.push({ text: rest });
+const [first, ...others] = profile.name.split(" ");
+
+const stats = [
+  { num: ">10x", label: "improvement in key package-pickup reliability metrics", src: "Zipline Dropbox" },
+  { num: "~3x", label: "lower cost than the current production generation", src: "Zipline Dropbox" },
+  { num: "20,000 mi", label: "belt lifespan after the root-cause redesign", src: "Veer" },
+  { num: "<30 s", label: "to assemble a belt, down from about 10 minutes", src: "Veer LinkBot" },
+  { num: "91%", label: "less setup time on the CNC", src: "LavaLock" },
+  { num: "6+", label: "patents, granted or pending, including international", src: "Named inventor" },
+];
 ---
 <Base type="profile">
   <div class="wrap-wide">
     <section class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">{profile.name}</h1>
-      <p class="headline">{profile.headline}</p>
-      {profile.intro && <p class="intro">{profile.intro}</p>}
-      <ul class="button-row">
-        <li><a class="button primary" href={url("/projects/")}>See projects</a></li>
-        <li><a class="button" href={url("/about/")}>About and CV</a></li>
-        <li><a class="button" href={url("/contact/")}>Contact</a></li>
-      </ul>
+      <div>
+        <p class="eyebrow">Mechanical engineer{profile.location ? ` · ${profile.location}` : ""}</p>
+        <h1 id="hero-title" class="hero-name"><span>{first}</span>{others.length > 0 && <span>{others.join(" ")}</span>}</h1>
+        <p class="statement">{pieces.map((p) => (p.cls ? <span class={p.cls}>{p.text}</span> : p.text))}</p>
+        {profile.intro && <p class="hero-intro">{profile.intro}</p>}
+        <ul class="button-row">
+          <li><a class="button primary" href="#story">The story <span aria-hidden="true">↓</span></a></li>
+          <li><a class="button" href={url("/projects/")}>Projects</a></li>
+          <li><a class="button" href={url("/cv/")}>CV</a></li>
+        </ul>
+      </div>
+      <HeroBelt />
     </section>
 
-    <section aria-labelledby="projects-title">
-      <div class="section-head">
-        <h2 id="projects-title">Selected projects</h2>
-        <a href={url("/projects/")}>All projects</a>
+    <section class="section" aria-labelledby="method-title">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">How I work</p>
+          <h2 id="method-title">Sketch. Prototype. Test. Production.</h2>
+        </div>
+        <p>I like owning whole systems: the mechanism, the test rig that proves it, and the cost and supplier work that gets it shipped.</p>
+      </div>
+      <MethodStrip />
+    </section>
+
+    <section class="section" id="story" aria-labelledby="story-title">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">The story so far</p>
+          <h2 id="story-title">From DNA robots to drone kiosks</h2>
+        </div>
+        <p>{story.intro}</p>
+      </div>
+      <Story />
+    </section>
+  </div>
+
+  <section class="results" aria-labelledby="results-title" data-anim>
+    <div class="wrap-wide">
+      <p class="eyebrow">Measured on the bench and in the field</p>
+      <h2 id="results-title">Results</h2>
+      <ul class="stats">
+        {stats.map((s, i) => (
+          <li class="stat">
+            <span class="stat-dim" style={`--d:${(i * 0.12).toFixed(2)}s`} aria-hidden="true"></span>
+            <span class="stat-num">{s.num}</span>
+            <span class="stat-label">{s.label}</span>
+            <span class="stat-src">{s.src}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <div class="wrap-wide">
+    <section class="section" aria-labelledby="projects-title">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Drawings on file</p>
+          <h2 id="projects-title">Selected projects</h2>
+        </div>
+        <a class="sec-link" href={url("/projects/")}>All projects →</a>
       </div>
       <ProjectCards projects={shown} />
     </section>
 
-    {posts.length > 0 && (
-      <section aria-labelledby="posts-title">
-        <div class="section-head">
+    <section class="section" aria-labelledby="posts-title">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Notebook</p>
           <h2 id="posts-title">Latest writing</h2>
-          <a href={url("/blog/")}>All posts</a>
         </div>
-        <PostList posts={posts} />
-      </section>
-    )}
+        {posts.length > 0 && <a class="sec-link" href={url("/blog/")}>All posts →</a>}
+      </div>
+      <PostList posts={posts} />
+    </section>
+
+    <WorkingTogether />
   </div>
 </Base>

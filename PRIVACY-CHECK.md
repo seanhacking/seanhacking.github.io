@@ -28,10 +28,10 @@ Format: `- **Detail**: value. Where.`
 
 ## Left out on purpose
 
-- Email address (`sean.c.hacking@gmail.com` is in the CV source; not shown).
-- Why the Zipline role ended, and anything from the "why he's looking" draft.
-- Job-search targeting: target roles, industries, companies to include or exclude (including the Zipline and defence exclusions), remote/part-time/relocation preferences in detail.
-- Gross margins (Veer 30–50% OEM and 60–80% direct; Form Robotics 70–80%).
+- Email address (it is in the private CV source; not shown).
+- Reasons for leaving any role, and anything from private outreach notes.
+- Job-search targeting of any kind: target roles, industries, companies to include or exclude, working-arrangement preferences.
+- Margins and any other company financials (Veer and Form Robotics).
 - All Veer business figures (owner, 2026-10-17): revenue, money raised, team size, unit counts, customer, OEM, distributor and dealer counts, vendor count, the SHIFT unit-cost target and volume, the test-rig cost, the LinkBot budget and customer count. The site describes what the products did, without numbers.
 - Salary, references, phone number, street address (none of these are in the sources).
 

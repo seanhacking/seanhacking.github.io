@@ -2,7 +2,7 @@
 
 Sean Hacking's personal site: About and CV, Projects, Blog and Contact. Static [Astro](https://astro.build) site, deployed to GitHub Pages at https://seanhacking.github.io by GitHub Actions. No tracking, no analytics, no external scripts or fonts (fonts are self-hosted from `@fontsource` packages).
 
-The look is an engineering drawing that comes alive: paper (light) and blueprint (dark), hand-made animated SVG drawings, and the home page told as seven chapters on one running belt. `DESIGN.md` has the concept, palette, type and motion rules.
+The look is an engineering drawing that comes alive, in the Shop Floor style (graphite, brushed aluminium, anodised blue): hand-made animated SVG drawings, and the home page told as seven chapters on one running belt. `DESIGN.md` has the concept and motion rules; `STYLE-GUIDE.md` has the palette, type and colour rules.
 
 The repo stays private, and Pages stays off, until Sean launches the site from the Business Agent Harness.
 
@@ -33,7 +33,7 @@ SITE_BASE=/preview/pr-7/ npm run build && SITE_BASE=/preview/pr-7/ npm run check
 | Home-page story chapters (text, which drawing, which project) | `src/data/story.json` | `/` |
 | Project photos (optional, see below) | `public/media/projects/<slug>/` | project pages |
 | Layout, nav, OpenGraph tags, theme and motion switches | `src/layouts/Base.astro` | |
-| Styles (paper and blueprint tokens, print CSS for the CV) | `src/styles/global.css` | |
+| Styles (Shop Floor light and dark tokens, print CSS for the CV) | `src/styles/global.css` | |
 | Drawing line styles and animations | `src/styles/art.css` | |
 | The drawings (inline SVG, one component each) | `src/components/art/` | |
 | "How it works" diagrams per project | `src/components/diagrams/`, chosen in `src/components/HowItWorks.astro` | project pages |

@@ -4,11 +4,11 @@
 
 /* ---------- Line styles ---------- */
 .art { font-family: var(--f-mono); }
-.art text, .hero-art text, .zl-loop text, .flow-icon text { font-family: var(--f-mono); fill: var(--ink-2); }
+.art text, .hero-art text, .zl-loop text, .flow-icon text { font-family: var(--f-mono); font-stretch: 87.5%; fill: var(--ink-2); }
 .t-zone { font-size: 9px; text-anchor: middle; }
-.t-mono { font-size: 10px; letter-spacing: 0.06em; }
-.t-small { font-size: 8.5px; letter-spacing: 0.08em; }
-.art .t-hand, .hero-art .t-hand { font-family: var(--f-hand); font-size: 19px; font-weight: 600; fill: var(--ink-2); letter-spacing: 0; }
+.t-mono { font-size: 10px; letter-spacing: 0.03em; }
+.t-small { font-size: 8.5px; letter-spacing: 0.03em; }
+.art .t-hand, .hero-art .t-hand { font-family: var(--f-mono); font-size: 11.5px; font-weight: 500; fill: var(--ink-2); letter-spacing: 0.02em; }
 .art .t-red, .hero-art .t-red, .t-red { fill: var(--red); }
 .art .t-cad { fill: var(--cad); }
 .art .t-inv { fill: var(--sheet); }
@@ -16,8 +16,8 @@
 .art .t-dim { font-size: 11px; fill: var(--cad); }
 .hero-art .t-tb-label { font-size: 7px; letter-spacing: 0.12em; fill: var(--ink-2); }
 .hero-art .t-tb { font-size: 9.5px; letter-spacing: 0.06em; fill: var(--ink); font-weight: 500; }
-.hero-art .t-rev { font-size: 10px; font-weight: 700; fill: var(--red); }
-.art .t-big-num { font-family: var(--f-display); font-stretch: 125%; font-weight: 860; font-size: 30px; fill: var(--ink); }
+.hero-art .t-rev { font-size: 9px; font-weight: 700; fill: var(--signal); }
+.art .t-big-num { font-family: var(--f-display); font-weight: 860; font-size: 40px; fill: var(--ink); }
 
 .sk { fill: none; stroke: var(--pencil); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .cl { fill: none; stroke: var(--cad); stroke-width: 0.9; stroke-dasharray: 14 3 2 3; }
@@ -34,7 +34,7 @@
 .belt { fill: none; stroke: var(--ink); stroke-width: 8; stroke-linejoin: round; }
 .belt-teeth { fill: none; stroke: color-mix(in srgb, var(--sheet) 42%, var(--ink)); stroke-width: 3; stroke-dasharray: 5 4; }
 .rev { fill: none; stroke: var(--red); stroke-width: 1.6; stroke-linejoin: round; }
-.rev-tri { fill: var(--sheet); stroke: var(--red); stroke-width: 1.5; }
+.rev-tri { fill: var(--sheet); stroke: var(--signal); stroke-width: 1.5; }
 .tb { fill: none; stroke: var(--ink); stroke-width: 0.8; }
 .ground { fill: none; stroke: var(--ink); stroke-width: 1.5; }
 .hatch { fill: none; stroke: var(--ink-2); stroke-width: 0.7; opacity: 0.6; }
@@ -128,7 +128,7 @@
 .zl-arrow { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .zl-dot { fill: var(--red); offset-rotate: 0deg; offset-anchor: 0 0; transform-box: view-box; offset-distance: 0%; }
 .zl-node { fill: var(--sheet); stroke: var(--ink); stroke-width: 2; }
-.zl-loop .zl-x { font-family: var(--f-display); font-stretch: 125%; font-weight: 860; font-size: 40px; fill: var(--ink); }
+.zl-loop .zl-x { font-family: var(--f-display); font-weight: 860; font-size: 54px; fill: var(--ink); }
 .zl-scope h3 { margin: 0 0 0.75rem; }
 .zl-scope ol { margin: 0; padding-left: 1.25rem; }
 .zl-scope li { margin-bottom: 0.6rem; color: var(--ink-2); }

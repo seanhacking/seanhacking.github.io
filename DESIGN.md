@@ -1,33 +1,16 @@
-# Design: "Sheet 1 of 7"
+# Design: "Sheet 1 of 8"
 
 ## Concept
 
 The site is an engineering drawing that comes alive. Every page is a sheet on a drafting table: a faint grid, a border with zone marks, a title block in the corner. Illustrations start as a wobbly pencil sketch, the crisp CAD lines draw in over them, and then the mechanism runs. That is Sean's story in one move: rough sketch, tested prototype, production.
 
-Light mode is **vellum** (warm drafting paper, navy ink, redline orange). Dark mode is a **blueprint** (deep blueprint blue, white lines, the same redline). The theme switch is labelled that way.
+The visual identity is **Shop Floor** (see `STYLE-GUIDE.md`): graphite on brushed aluminium in light mode, aluminium on graphite in dark mode, anodised blue as the accent, and safety yellow only as a rare signal on graphite. The page background is a tooling-plate dot grid.
 
 The home page is told as seven chapters on one running belt: a toothed belt runs down the page and turns a small pulley at each chapter as you scroll.
 
-## Palette
+## Palette and type
 
-| Token | Vellum (light) | Blueprint (dark) | Use |
-| --- | --- | --- | --- |
-| `--paper` | `#f4f0e6` | `#0c2341` | page |
-| `--sheet` | `#fbf8f1` | `#112e54` | drawing sheets, cards |
-| `--ink` | `#14202e` | `#eaf2fc` | text, belts, solid parts |
-| `--ink-2` | `#3c4a5c` | `#a8bfdc` | secondary text |
-| `--cad` | `#1f4f8f` | `#8cc3ff` | CAD lines, dimensions |
-| `--red` | `#c2381b` | `#ff8a65` | redline: accent, stamps, revision clouds |
-| `--pencil` | `#857f72` | `#7f98ba` | sketch strokes |
-| `--line` | `#d3cab6` | `#2c4c78` | borders, rules |
-
-All text pairs pass WCAG AA (4.5:1) in both themes.
-
-## Type
-
-- **Archivo** (variable, width and weight axes), self-hosted from `@fontsource-variable/archivo`. Headlines run expanded and heavy (`font-stretch: 118%`, 800), like a title block; body text at normal width.
-- **IBM Plex Mono** (400, 500) for drawing notes: eyebrows, dates, dimensions, sheet numbers.
-- **Caveat** (variable) for the hand: margin notes and the words "rough sketch" in the hero. Never for anything longer than a phrase.
+See `STYLE-GUIDE.md`. Big Shoulders Display for headlines, Atkinson Hyperlegible Next for body text, Martian Mono for labels and drawing notes.
 
 ## Motion principles
 

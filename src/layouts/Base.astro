@@ -1,9 +1,9 @@
 ---
-import "@fontsource-variable/archivo/wdth.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/500.css";
-import "@fontsource-variable/caveat/wght.css";
-import archivoLatin from "@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url";
+import "@fontsource-variable/big-shoulders-display/wght";
+import "@fontsource-variable/atkinson-hyperlegible-next/wght";
+import "@fontsource-variable/martian-mono/wdth";
+import displayLatin from "@fontsource-variable/big-shoulders-display/files/big-shoulders-display-latin-wght-normal.woff2?url";
+import bodyLatin from "@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2?url";
 import "../styles/global.css";
 import "../styles/art.css";
 import profile from "../data/profile.json";
@@ -48,9 +48,10 @@ const year = new Date().getFullYear();
     {!is404 && <link rel="canonical" href={canonicalUrl} />}
     {(IS_PREVIEW || noindex) && <meta name="robots" content="noindex, nofollow" />}
     <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0c2341" media="(prefers-color-scheme: dark)" />
-    <link rel="preload" href={archivoLatin} as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#e9ecee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14171a" media="(prefers-color-scheme: dark)" />
+    <link rel="preload" href={displayLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={bodyLatin} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href={url("/favicon.svg")} type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title={`${profile.name}: writing`} href={url("/rss.xml")} />
     {!IS_PREVIEW && <link rel="sitemap" href={url("/sitemap-index.xml")} />}
@@ -106,9 +107,9 @@ const year = new Date().getFullYear();
           </ul>
         </nav>
         <div class="switches">
-          <button class="switch theme-toggle" type="button" aria-pressed="false" title="Dark theme: a blueprint">
+          <button class="switch theme-toggle" type="button" aria-pressed="false" title="Dark theme">
             <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" /></svg>
-            <span class="switch-label">Blueprint</span>
+            <span class="switch-label">Dark</span>
           </button>
           <button class="switch motion-toggle" type="button" aria-pressed="true" title="Animated drawings">
             <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6" /><path d="M8 2v3M8 11v3M2 8h3M11 8h3" /></svg>
@@ -153,7 +154,7 @@ const year = new Date().getFullYear();
         var d = document.documentElement;
         var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
-        // Theme switch: paper (light) and blueprint (dark).
+        // Theme switch: aluminium (light) and graphite (dark).
         var tbtn = document.querySelector(".theme-toggle");
         function theme() { return d.getAttribute("data-theme") || (mq && mq.matches ? "dark" : "light"); }
         function showTheme() {

@@ -1,0 +1,36 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { getProjects, type Project } from "../../lib/content";
+import { url } from "../../lib/url";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props as { project: Project };
+const { Content } = await render(project);
+const d = project.data;
+---
+<Base title={d.title} description={d.summary} image={d.heroImage} type="article">
+  <article class="wrap page">
+    <p class="eyebrow"><a href={url("/projects/")}>Projects</a></p>
+    <h1>{d.title}</h1>
+    <p class="meta">{d.period ?? d.date.getUTCFullYear()}{d.role ? ` · ${d.role}` : ""}</p>
+    <p class="lede">{d.summary}</p>
+    {d.heroImage && <img class="hero-image" src={url(d.heroImage)} alt="" />}
+    <div class="prose"><Content /></div>
+    {d.links && d.links.length > 0 && (
+      <>
+        <h2>Links</h2>
+        <ul>{d.links.map((l) => <li><a href={url(l.url)}>{l.label}</a></li>)}</ul>
+      </>
+    )}
+    {d.tags.length > 0 && (
+      <ul class="tags" aria-label="Tags">{d.tags.map((t) => <li class="tag">{t}</li>)}</ul>
+    )}
+    <hr />
+    <p><a href={url("/projects/")}>All projects</a></p>
+  </article>
+</Base>

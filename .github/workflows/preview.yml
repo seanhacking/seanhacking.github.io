@@ -1,0 +1,106 @@
+# Pull request -> build with base /preview/pr-<n>/ -> publish to gh-pages:/preview/pr-<n>/ (noindex)
+# and comment the preview URL on the PR. When the PR closes, the preview folder is removed.
+name: Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  ASTRO_TELEMETRY_DISABLED: "1"
+  PR_NUMBER: ${{ github.event.pull_request.number }}
+  PREVIEW_URL: https://seanhacking.github.io/preview/pr-${{ github.event.pull_request.number }}/
+
+jobs:
+  build:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    env:
+      SITE_BASE: /preview/pr-${{ github.event.pull_request.number }}/
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build preview
+        run: npm run build
+
+      - name: Check links
+        run: npm run check-links
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: preview-site
+          path: dist
+          retention-days: 7
+
+  publish:
+    needs: build
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: preview-site
+          path: dist
+
+      - name: Publish to gh-pages/preview/pr-${{ github.event.pull_request.number }}
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          destination_dir: preview/pr-${{ github.event.pull_request.number }}
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "Preview PR #${{ github.event.pull_request.number }} at ${{ github.event.pull_request.head.sha }}"
+
+      - name: Comment the preview URL
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          body="Preview: ${PREVIEW_URL} (commit ${HEAD_SHA:0:7}). Not indexed by search engines; removed when this PR closes. Live only once GitHub Pages is on."
+          gh pr comment "$PR_NUMBER" --edit-last --body "$body" || gh pr comment "$PR_NUMBER" --body "$body"
+
+  cleanup:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages
+      cancel-in-progress: false
+    steps:
+      - name: Check out gh-pages
+        id: checkout
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Remove preview/pr-${{ github.event.pull_request.number }}
+        if: steps.checkout.outcome == 'success'
+        run: |
+          dir="preview/pr-${PR_NUMBER}"
+          if [ -d "$dir" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git rm -r -q "$dir"
+            git commit -m "Remove preview for PR #${PR_NUMBER}"
+            git push origin HEAD:gh-pages
+          else
+            echo "No preview folder for PR #${PR_NUMBER}."
+          fi

@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sean Hacking: Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production.</title><meta name="description" content="Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><link rel="canonical" href="https://seanhacking.github.io/"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sean Hacking: writing" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:site_name" content="Sean Hacking"><meta property="og:title" content="Sean Hacking"><meta property="og:description" content="Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><meta property="og:type" content="profile"><meta property="og:url" content="https://seanhacking.github.io/"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Sean Hacking"><meta name="twitter:description" content="Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><script>
+      // Theme: follow the system unless the visitor chose light or dark (stored only in their browser).
+      (function () {
+        var d = document.documentElement;
+        d.classList.remove("no-js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.CuTd6MZI.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap-wide"><a class="brand" href="/">Sean Hacking</a><nav class="nav" aria-label="Main"><ul><li><a href="/" aria-current="page">Home</a></li><li><a href="/about/">About</a></li><li><a href="/projects/">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul><button class="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button></nav></div></header><main id="main" tabindex="-1"><div class="wrap-wide"><section class="hero" aria-labelledby="hero-title"><h1 id="hero-title">Sean Hacking</h1><p class="headline">Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production.</p><p class="intro">I design mechanisms, build the prototypes and test them until they hold up. I founded and ran Veer, a cycling drivetrain company, and most recently worked on Zipline&#39;s New Products team.</p><ul class="button-row"><li><a class="button primary" href="/projects/">See projects</a></li><li><a class="button" href="/about/">About and CV</a></li><li><a class="button" href="/contact/">Contact</a></li></ul></section><section aria-labelledby="projects-title"><div class="section-head"><h2 id="projects-title">Selected projects</h2><a href="/projects/">All projects</a></div><ul class="cards"><li class="card"><p class="eyebrow">2025–2026 · Senior Mechanical Engineer, Zipline New Products</p><h3><a href="/projects/zipline-dropbox-kiosk/">Zipline Dropbox, second generation</a></h3><p>A robotic kiosk that loads delivery drones and handles package pickup. I took it from rough sketches through 9 flight-tested prototypes across 3 generations.</p><ul class="tags" aria-label="Tags"><li class="tag">robotics</li><li class="tag">drones</li><li class="tag">prototyping</li><li class="tag">DFM</li></ul></li><li class="card"><p class="eyebrow">Veer, 2016–2024 · Founder &amp; CTO</p><h3><a href="/projects/shift-seamless-belt-transmission/">SHIFT seamless belt transmission</a></h3><p>A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture.</p><ul class="tags" aria-label="Tags"><li class="tag">mechanisms</li><li class="tag">transmissions</li><li class="tag">patents</li><li class="tag">DFM</li></ul></li><li class="card"><p class="eyebrow">Veer, 2016–2024 · Founder &amp; CTO</p><h3><a href="/projects/veer-belt-drive/">Veer belt drivetrains: Split Belt Pro and V-Link</a></h3><p>A detachable belt splice that created the first belt-drive conversion category for cycling, and won the Eurobike Startup Award.</p><ul class="tags" aria-label="Tags"><li class="tag">cycling</li><li class="tag">drivetrains</li><li class="tag">manufacturing</li><li class="tag">test rigs</li><li class="tag">automation</li></ul></li></ul></section></div></main><footer class="site-footer"><div class="wrap-wide"><span>&copy; 2026 Sean Hacking · San Francisco Bay Area</span><ul><li><a href="https://www.linkedin.com/in/sean-hacking-b5006618/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/seanhacking" rel="me noopener">GitHub</a></li><li><a href="/rss.xml">RSS</a></li></ul></div></footer><script>
+      (function () {
+        var d = document.documentElement;
+        var btn = document.querySelector(".theme-toggle");
+        if (!btn) return;
+        var mq = window.matchMedia("(prefers-color-scheme: dark)");
+        function current() { return d.getAttribute("data-theme") || (mq.matches ? "dark" : "light"); }
+        function label() {
+          var next = current() === "dark" ? "light" : "dark";
+          btn.textContent = next === "dark" ? "Dark" : "Light";
+          btn.setAttribute("aria-label", "Switch to " + next + " theme");
+        }
+        label();
+        btn.addEventListener("click", function () {
+          var next = current() === "dark" ? "light" : "dark";
+          d.setAttribute("data-theme", next);
+          try { localStorage.setItem("theme", next); } catch (e) {}
+          label();
+        });
+        mq.addEventListener && mq.addEventListener("change", label);
+      })();
+    </script></body></html>

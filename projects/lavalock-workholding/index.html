@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LavaLock universal workholding | Sean Hacking</title><meta name="description" content="A workholding system for CNC prototyping: 91% less setup time and 50% lower prototype cost, plus a custom thermoplastic resin."><link rel="canonical" href="https://seanhacking.github.io/projects/lavalock-workholding/"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sean Hacking: writing" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:site_name" content="Sean Hacking"><meta property="og:title" content="LavaLock universal workholding"><meta property="og:description" content="A workholding system for CNC prototyping: 91% less setup time and 50% lower prototype cost, plus a custom thermoplastic resin."><meta property="og:type" content="article"><meta property="og:url" content="https://seanhacking.github.io/projects/lavalock-workholding/"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="LavaLock universal workholding"><meta name="twitter:description" content="A workholding system for CNC prototyping: 91% less setup time and 50% lower prototype cost, plus a custom thermoplastic resin."><script>
+      // Theme: follow the system unless the visitor chose light or dark (stored only in their browser).
+      (function () {
+        var d = document.documentElement;
+        d.classList.remove("no-js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script><link rel="stylesheet" href="/_astro/Base.CuTd6MZI.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap-wide"><a class="brand" href="/">Sean Hacking</a><nav class="nav" aria-label="Main"><ul><li><a href="/">Home</a></li><li><a href="/about/">About</a></li><li><a href="/projects/" aria-current="page">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul><button class="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button></nav></div></header><main id="main" tabindex="-1"><article class="wrap page"><p class="eyebrow"><a href="/projects/">Projects</a></p><h1>LavaLock universal workholding</h1><p class="meta">Form Robotics, 2024–2025 · Founder &amp; Lead Engineer</p><p class="lede">A workholding system for CNC prototyping: 91% less setup time and 50% lower prototype cost, plus a custom thermoplastic resin.</p><div class="prose"><p>At Form Robotics I built a prototyping facility with 5 CNC machines from scratch, set up for same-day design-to-testable-part. LavaLock came out of that shop.</p>
+<h2 id="lavalock">LavaLock</h2>
+<ul>
+<li>A universal workholding system: <strong>91% reduction in setup time</strong> and <strong>50% savings on prototype cost</strong>.</li>
+<li>Alongside it I developed a custom thermoplastic resin: <strong>561 PSI against 300 PSI</strong> for a commercial resin.</li>
+</ul>
+<h2 id="the-shop">The shop</h2>
+<p>We machined next-day prototypes for aerospace and robotics customers, including motor housings and bulkheads for Zipline. MVP and early sales came within 6 months.</p>
+</div><ul class="tags" aria-label="Tags"><li class="tag">CNC</li><li class="tag">manufacturing</li><li class="tag">materials</li><li class="tag">prototyping</li></ul><hr><p><a href="/projects/">All projects</a></p></article></main><footer class="site-footer"><div class="wrap-wide"><span>&copy; 2026 Sean Hacking · San Francisco Bay Area</span><ul><li><a href="https://www.linkedin.com/in/sean-hacking-b5006618/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/seanhacking" rel="me noopener">GitHub</a></li><li><a href="/rss.xml">RSS</a></li></ul></div></footer><script>
+      (function () {
+        var d = document.documentElement;
+        var btn = document.querySelector(".theme-toggle");
+        if (!btn) return;
+        var mq = window.matchMedia("(prefers-color-scheme: dark)");
+        function current() { return d.getAttribute("data-theme") || (mq.matches ? "dark" : "light"); }
+        function label() {
+          var next = current() === "dark" ? "light" : "dark";
+          btn.textContent = next === "dark" ? "Dark" : "Light";
+          btn.setAttribute("aria-label", "Switch to " + next + " theme");
+        }
+        label();
+        btn.addEventListener("click", function () {
+          var next = current() === "dark" ? "light" : "dark";
+          d.setAttribute("data-theme", next);
+          try { localStorage.setItem("theme", next); } catch (e) {}
+          label();
+        });
+        mq.addEventListener && mq.addEventListener("change", label);
+      })();
+    </script></body></html>

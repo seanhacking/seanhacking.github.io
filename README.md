@@ -71,3 +71,4 @@ Every internal link in `.astro` files goes through `url()` from `src/lib/url.ts`
 ## Privacy
 
 `PRIVACY-CHECK.md` lists every personal detail the site shows. Never add phone numbers, street addresses, salary, references, private notes, or job-search targeting details. Location stays at city or region level.
+

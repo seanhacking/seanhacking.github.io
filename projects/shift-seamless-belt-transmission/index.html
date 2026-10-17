@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SHIFT seamless belt transmission | Sean Hacking</title><meta name="description" content="A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture."><link rel="canonical" href="https://seanhacking.github.io/projects/shift-seamless-belt-transmission/"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sean Hacking: writing" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:site_name" content="Sean Hacking"><meta property="og:title" content="SHIFT seamless belt transmission"><meta property="og:description" content="A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture."><meta property="og:type" content="article"><meta property="og:url" content="https://seanhacking.github.io/projects/shift-seamless-belt-transmission/"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="SHIFT seamless belt transmission"><meta name="twitter:description" content="A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture."><script>
-      // Theme: follow the system unless the visitor chose light or dark (stored only in their browser).
+<!DOCTYPE html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SHIFT seamless belt transmission | Sean Hacking</title><meta name="description" content="A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture."><link rel="canonical" href="https://seanhacking.github.io/projects/shift-seamless-belt-transmission/"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0c2341" media="(prefers-color-scheme: dark)"><link rel="preload" href="/_astro/archivo-latin-wdth-normal.DY7AcnAa.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sean Hacking: writing" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:site_name" content="Sean Hacking"><meta property="og:title" content="SHIFT seamless belt transmission"><meta property="og:description" content="A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture."><meta property="og:type" content="article"><meta property="og:url" content="https://seanhacking.github.io/projects/shift-seamless-belt-transmission/"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="SHIFT seamless belt transmission"><meta name="twitter:description" content="A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture."><script>
+      // Before first paint: theme (stored only in this browser) and motion (off for reduced-motion
+      // visitors, or when they switched it off). Drawings are static unless <html> has class "motion".
       (function () {
         var d = document.documentElement;
         d.classList.remove("no-js");
@@ -7,33 +8,87 @@
           var t = localStorage.getItem("theme");
           if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
         } catch (e) {}
+        var still = false;
+        try { still = localStorage.getItem("motion") === "off"; } catch (e) {}
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!still && !reduce) d.classList.add("motion");
       })();
-    </script><link rel="stylesheet" href="/_astro/Base.CuTd6MZI.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap-wide"><a class="brand" href="/">Sean Hacking</a><nav class="nav" aria-label="Main"><ul><li><a href="/">Home</a></li><li><a href="/about/">About</a></li><li><a href="/projects/" aria-current="page">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul><button class="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button></nav></div></header><main id="main" tabindex="-1"><article class="wrap page"><p class="eyebrow"><a href="/projects/">Projects</a></p><h1>SHIFT seamless belt transmission</h1><p class="meta">Veer, 2016–2024 · Founder &amp; CTO</p><p class="lede">A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture.</p><div class="prose"><p>SHIFT is a seamless belt transmission: it shifts under load, without a clutch. I invented it at Veer.</p>
+    </script><link rel="stylesheet" href="/_astro/Base.Cb9soHPV.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap-wide header-row"><a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 48 28" width="48" height="28" aria-hidden="true"><path d="M12 3.5H38M12 24.5H38"></path><circle cx="12" cy="14" r="10.5"></circle><circle cx="38" cy="14" r="5.5"></circle><circle class="brand-hub" cx="12" cy="14" r="3"></circle></svg><span>Sean Hacking</span></a><nav class="nav" aria-label="Main"><ul><li><a href="/about/">About</a></li><li><a href="/projects/" aria-current="page">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul></nav><div class="switches"><button class="switch theme-toggle" type="button" aria-pressed="false" title="Dark theme: a blueprint"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 1.5a6.5 6.5 0 0 1 0 13z"></path></svg><span class="switch-label">Blueprint</span></button><button class="switch motion-toggle" type="button" aria-pressed="true" title="Animated drawings"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 2v3M8 11v3M2 8h3M11 8h3"></path></svg><span class="switch-label">Motion</span></button></div></div></header><main id="main" tabindex="-1"><article class="wrap-wide page"><header class="project-hero"><div><p class="eyebrow"><a href="/projects/">Projects</a> · Sheet 2 of 4</p><h1>SHIFT seamless belt transmission</h1><p class="lede">A belt transmission that shifts under load without a clutch. I invented it, wrote and prosecuted the patent to grant, and designed it for manufacture.</p><dl class="spec"><dt>Role</dt><dd>Founder &amp; CTO</dd><dt>Period</dt><dd>Veer, 2016–2024</dd><dt>Tags</dt><dd><ul class="tags" aria-label="Tags"><li class="tag">mechanisms</li><li class="tag">transmissions</li><li class="tag">patents</li><li class="tag">DFM</li></ul></dd></dl></div><figure class="art-frame" data-anim><div class="art-canvas"><svg class="art sh" viewBox="0 0 400 280" width="400" height="280" role="img" aria-label="Schematic of the SHIFT belt transmission: the belt keeps running while the gear ratio steps up three times, and the load line stays continuous through every shift."><g class="spin" style="--o:86px 84px;--T:5.65s;--d:1.2s"><path class="part draw part-fill" pathLength="1" style="--t:.8s" d="M126 84L129.48 85.37L129.13 89.68L125.47 90.46L124.64 94.35L127.64 96.57L126.19 100.65L122.46 100.46L120.64 104L122.97 106.92L120.51 110.48L116.95 109.34L114.28 112.28L115.78 115.71L112.48 118.51L109.34 116.48L106 118.64L106.56 122.34L102.65 124.19L100.14 121.42L96.35 122.64L95.93 126.35L91.68 127.13L89.97 123.8L86 124L84.63 127.48L80.32 127.13L79.54 123.47L75.65 122.64L73.43 125.64L69.35 124.19L69.54 120.46L66 118.64L63.08 120.97L59.52 118.51L60.66 114.95L57.72 112.28L54.29 113.78L51.49 110.48L53.52 107.34L51.36 104L47.66 104.56L45.81 100.65L48.58 98.14L47.36 94.35L43.65 93.93L42.87 89.68L46.2 87.97L46 84L42.52 82.63L42.87 78.32L46.53 77.54L47.36 73.65L44.36 71.43L45.81 67.35L49.54 67.54L51.36 64L49.03 61.08L51.49 57.52L55.05 58.66L57.72 55.72L56.22 52.29L59.52 49.49L62.66 51.52L66 49.36L65.44 45.66L69.35 43.81L71.86 46.58L75.65 45.36L76.07 41.65L80.32 40.87L82.03 44.2L86 44L87.37 40.52L91.68 40.87L92.46 44.53L96.35 45.36L98.57 42.36L102.65 43.81L102.46 47.54L106 49.36L108.92 47.03L112.48 49.49L111.34 53.05L114.28 55.72L117.71 54.22L120.51 57.52L118.48 60.66L120.64 64L124.34 63.44L126.19 67.35L123.42 69.86L124.64 73.65L128.35 74.07L129.13 78.32L125.8 80.03Z"></path><circle class="part hub" cx="86" cy="84" r="11"></circle><path class="part-line" d="M60 84H112M86 58V110"></path></g><path class="belt draw" pathLength="1" style="--d:.6s;--t:.8s" d="M90.09 39.19L264.64 55.12A29 29 0 0 1 264.64 112.88L90.09 128.81A45 45 0 1 1 90.09 39.19Z"></path><path class="belt-teeth fade run" style="--d:1.2s;--T:1.800s;--run:-90" d="M90.09 39.19L264.64 55.12A29 29 0 0 1 264.64 112.88L90.09 128.81A45 45 0 1 1 90.09 39.19Z"></path><!-- The transmission: drawn as a closed housing on purpose --><g class="sh-box"><rect class="part solid" x="206" y="38" width="120" height="92" rx="10"></rect><g class="spin" style="--o:262px 84px;--T:3.64s;--d:1.2s"><path class="part part-fill" d="M286 84L288.97 85.27L288.48 89.27L285.29 89.79L284.17 93.18L286.43 95.5L284.45 99L281.31 98.26L278.97 100.97L280.17 103.97L277 106.45L274.38 104.56L271.18 106.17L271.15 109.4L267.27 110.48L265.57 107.73L262 108L260.73 110.97L256.73 110.48L256.21 107.29L252.82 106.17L250.5 108.43L247 106.45L247.74 103.31L245.03 100.97L242.03 102.17L239.55 99L241.44 96.38L239.83 93.18L236.6 93.15L235.52 89.27L238.27 87.57L238 84L235.03 82.73L235.52 78.73L238.71 78.21L239.83 74.82L237.57 72.5L239.55 69L242.69 69.74L245.03 67.03L243.83 64.03L247 61.55L249.62 63.44L252.82 61.83L252.85 58.6L256.73 57.52L258.43 60.27L262 60L263.27 57.03L267.27 57.52L267.79 60.71L271.18 61.83L273.5 59.57L277 61.55L276.26 64.69L278.97 67.03L281.97 65.83L284.45 69L282.56 71.62L284.17 74.82L287.4 74.85L288.48 78.73L285.73 80.43Z"></path><circle class="bore" cx="262" cy="84" r="5"></circle></g><text x="214" y="52" class="t-mono t-small t-inv">SHIFT</text><path class="sh-gauge" d="M294 88a13 13 0 0 1 26 0z"></path><path class="sh-needle" style="--o:307px 88px" d="M307 88V77"></path></g><text x="384" y="28" class="t-hand t-red fade" style="--d:1.4s" text-anchor="end">no clutch</text><!-- Chart: ratio steps, load stays continuous --><path class="axis" d="M40 152V246H376"></path><text x="40" y="146" class="t-mono t-small">LOAD</text><text x="46" y="262" class="t-mono t-small t-cad">RATIO</text><text x="376" y="262" class="t-mono t-small" text-anchor="end">TIME</text><path class="sh-mark" d="M122.5 154V246"></path><path class="sh-mark" d="M205 154V246"></path><path class="sh-mark" d="M287.5 154V246"></path><text x="122.5" y="150" class="t-mono t-small t-red" text-anchor="middle">shift</text><text x="205" y="150" class="t-mono t-small t-red" text-anchor="middle">shift</text><text x="287.5" y="150" class="t-mono t-small t-red" text-anchor="middle">shift</text><path class="sh-ratio" pathLength="1" d="M40 236H122.5V222H205V208H287.5V194H370"></path><path class="sh-load" pathLength="1" d="M40 176C54.0 182 67.3 170 81.3 176C95.3 170 108.5 182 122.5 176C136.5 182 149.8 170 163.8 176C177.8 170 191.0 182 205.0 176C219.0 182 232.3 170 246.3 176C260.3 170 273.5 182 287.5 176C301.5 182 314.8 170 328.8 176C342.8 170 356.0 182 370.0 176"></path><path class="sh-head" d="M40 154V246"></path></svg></div><figcaption class="art-cap"><span class="art-sheet">SHT 2 / 4</span><span class="art-title">SHIFT seamless belt transmission</span><span class="art-note">Schematic, not the patented mechanism</span></figcaption></figure></header><div class="project-body has-aside"><div><div class="prose"><p>SHIFT is a seamless belt transmission: it shifts under load, without a clutch. I invented it at Veer.</p>
 <h2 id="what-i-did">What I did</h2>
 <ul>
 <li>Invented the mechanism.</li>
 <li>Wrote and prosecuted the patent myself. It was granted in the US and internationally with no rejections.</li>
 <li>Designed it for manufacture against a unit-cost target.</li>
 </ul>
-</div><ul class="tags" aria-label="Tags"><li class="tag">mechanisms</li><li class="tag">transmissions</li><li class="tag">patents</li><li class="tag">DFM</li></ul><hr><p><a href="/projects/">All projects</a></p></article></main><footer class="site-footer"><div class="wrap-wide"><span>&copy; 2026 Sean Hacking · San Francisco Bay Area</span><ul><li><a href="https://www.linkedin.com/in/sean-hacking-b5006618/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/seanhacking" rel="me noopener">GitHub</a></li><li><a href="/rss.xml">RSS</a></li></ul></div></footer><script>
+</div></div><aside class="project-aside" aria-label="Drawings and diagrams"><section class="how" aria-labelledby="how-title"><p class="eyebrow">How it works</p><h2 id="how-title">From idea to granted patent</h2><ol class="path" data-anim><li class="path-step" style="--d:0.20s"><span class="path-node" aria-hidden="true">1</span><div><h3>Invented</h3><p>A seamless belt transmission that shifts under load, without a clutch.</p></div></li><li class="path-step" style="--d:0.45s"><span class="path-node" aria-hidden="true">2</span><div><h3>Patent written</h3><p>I wrote the application myself.</p></div></li><li class="path-step" style="--d:0.70s"><span class="path-node" aria-hidden="true">3</span><div><h3>Prosecuted</h3><p>I took it through prosecution myself, with no rejections.</p></div></li><li class="path-step" style="--d:0.95s"><span class="path-node" aria-hidden="true">4</span><div><h3>Granted</h3><p>In the US and internationally.</p></div></li><li class="path-step" style="--d:1.20s"><span class="path-node" aria-hidden="true">5</span><div><h3>Designed for manufacture</h3><p>Against a unit-cost target.</p></div></li></ol></section></aside></div><nav class="pager" aria-label="More projects"><a class="prev" href="/projects/zipline-dropbox-kiosk/"><span class="pager-label">← Previous sheet</span><span class="pager-title">Zipline Dropbox, second generation</span></a><a class="next" href="/projects/veer-belt-drive/"><span class="pager-label">Next sheet →</span><span class="pager-title">Veer belt drivetrains: Split Belt Pro and V-Link</span></a></nav></article></main><footer class="site-footer"><div class="wrap-wide"><div class="title-block-footer"><div class="tbf-cell tbf-wide"><span class="tbf-label">Drawn by</span><span class="tbf-value">Sean Hacking</span></div><div class="tbf-cell"><span class="tbf-label">Location</span><span class="tbf-value">San Francisco Bay Area</span></div><div class="tbf-cell"><span class="tbf-label">Links</span><ul class="tbf-links"><li><a href="https://www.linkedin.com/in/sean-hacking-b5006618/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/seanhacking" rel="me noopener">GitHub</a></li><li><a href="/rss.xml">RSS</a></li></ul></div><div class="tbf-cell"><span class="tbf-label">Rev</span><span class="tbf-value">&copy; 2026</span></div></div><p class="footer-note">No tracking, no cookies. The drawings are illustrations made for this site.</p></div></footer><script>
       (function () {
         var d = document.documentElement;
-        var btn = document.querySelector(".theme-toggle");
-        if (!btn) return;
-        var mq = window.matchMedia("(prefers-color-scheme: dark)");
-        function current() { return d.getAttribute("data-theme") || (mq.matches ? "dark" : "light"); }
-        function label() {
-          var next = current() === "dark" ? "light" : "dark";
-          btn.textContent = next === "dark" ? "Dark" : "Light";
-          btn.setAttribute("aria-label", "Switch to " + next + " theme");
+        var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+        // Theme switch: paper (light) and blueprint (dark).
+        var tbtn = document.querySelector(".theme-toggle");
+        function theme() { return d.getAttribute("data-theme") || (mq && mq.matches ? "dark" : "light"); }
+        function showTheme() {
+          if (!tbtn) return;
+          var dark = theme() === "dark";
+          tbtn.setAttribute("aria-pressed", dark ? "true" : "false");
         }
-        label();
-        btn.addEventListener("click", function () {
-          var next = current() === "dark" ? "light" : "dark";
+        if (tbtn) tbtn.addEventListener("click", function () {
+          var next = theme() === "dark" ? "light" : "dark";
           d.setAttribute("data-theme", next);
           try { localStorage.setItem("theme", next); } catch (e) {}
-          label();
+          showTheme();
         });
-        mq.addEventListener && mq.addEventListener("change", label);
+        if (mq && mq.addEventListener) mq.addEventListener("change", showTheme);
+        showTheme();
+
+        // Motion switch: stops every animation and leaves the finished drawings.
+        var mbtn = document.querySelector(".motion-toggle");
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function showMotion() {
+          if (!mbtn) return;
+          var on = d.classList.contains("motion");
+          mbtn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+        if (mbtn) mbtn.addEventListener("click", function () {
+          var on = !d.classList.contains("motion");
+          d.classList.toggle("motion", on);
+          try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
+          showMotion();
+          if (on) observe();
+        });
+        showMotion();
+        if (reduce && mbtn) mbtn.hidden = true;
+
+        // Drawings run only while on screen: elements marked data-anim get "is-live" while visible.
+        var io = null;
+        function observe() {
+          var els = document.querySelectorAll("[data-anim]");
+          if (!("IntersectionObserver" in window)) {
+            for (var i = 0; i < els.length; i++) els[i].classList.add("is-live");
+            return;
+          }
+          if (io) return;
+          io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { e.target.classList.toggle("is-live", e.isIntersecting); });
+          }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+          for (var j = 0; j < els.length; j++) io.observe(els[j]);
+        }
+        if (d.classList.contains("motion")) observe();
+
+        // The story belt moves with the scroll position.
+        var belt = document.querySelector("[data-belt]");
+        if (belt) {
+          var ticking = false;
+          var update = function () {
+            ticking = false;
+            if (!d.classList.contains("motion")) return;
+            belt.style.setProperty("--sp", String(Math.round(window.scrollY)));
+          };
+          window.addEventListener("scroll", function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+          }, { passive: true });
+          update();
+        }
       })();
     </script></body></html>

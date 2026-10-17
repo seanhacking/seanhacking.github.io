@@ -1,5 +1,6 @@
-<!DOCTYPE html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>About | Sean Hacking</title><meta name="description" content="About Sean Hacking. Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><link rel="canonical" href="https://seanhacking.github.io/about/"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#141518" media="(prefers-color-scheme: dark)"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sean Hacking: writing" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:site_name" content="Sean Hacking"><meta property="og:title" content="About"><meta property="og:description" content="About Sean Hacking. Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><meta property="og:type" content="profile"><meta property="og:url" content="https://seanhacking.github.io/about/"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="About"><meta name="twitter:description" content="About Sean Hacking. Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><script>
-      // Theme: follow the system unless the visitor chose light or dark (stored only in their browser).
+<!DOCTYPE html><html lang="en" class="no-js"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>About | Sean Hacking</title><meta name="description" content="About Sean Hacking. Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><link rel="canonical" href="https://seanhacking.github.io/about/"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0c2341" media="(prefers-color-scheme: dark)"><link rel="preload" href="/_astro/archivo-latin-wdth-normal.DY7AcnAa.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate" type="application/rss+xml" title="Sean Hacking: writing" href="/rss.xml"><link rel="sitemap" href="/sitemap-index.xml"><meta property="og:site_name" content="Sean Hacking"><meta property="og:title" content="About"><meta property="og:description" content="About Sean Hacking. Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><meta property="og:type" content="profile"><meta property="og:url" content="https://seanhacking.github.io/about/"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="About"><meta name="twitter:description" content="About Sean Hacking. Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production."><script>
+      // Before first paint: theme (stored only in this browser) and motion (off for reduced-motion
+      // visitors, or when they switched it off). Drawings are static unless <html> has class "motion".
       (function () {
         var d = document.documentElement;
         d.classList.remove("no-js");
@@ -7,31 +8,83 @@
           var t = localStorage.getItem("theme");
           if (t === "light" || t === "dark") d.setAttribute("data-theme", t);
         } catch (e) {}
+        var still = false;
+        try { still = localStorage.getItem("motion") === "off"; } catch (e) {}
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!still && !reduce) d.classList.add("motion");
       })();
-    </script><link rel="stylesheet" href="/_astro/Base.CuTd6MZI.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap-wide"><a class="brand" href="/">Sean Hacking</a><nav class="nav" aria-label="Main"><ul><li><a href="/">Home</a></li><li><a href="/about/" aria-current="page">About</a></li><li><a href="/projects/">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul><button class="theme-toggle" type="button" aria-label="Switch colour theme">Theme</button></nav></div></header><main id="main" tabindex="-1"><article class="wrap page"><p class="eyebrow">About</p><h1>Sean Hacking</h1><p class="lede">Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production.</p><div class="prose"><p>I'm a mechanical engineer who gets hardware from a napkin sketch to a flight-tested prototype to production, quickly.</p>
+    </script><link rel="stylesheet" href="/_astro/Base.Cb9soHPV.css"></head><body><a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="wrap-wide header-row"><a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 48 28" width="48" height="28" aria-hidden="true"><path d="M12 3.5H38M12 24.5H38"></path><circle cx="12" cy="14" r="10.5"></circle><circle cx="38" cy="14" r="5.5"></circle><circle class="brand-hub" cx="12" cy="14" r="3"></circle></svg><span>Sean Hacking</span></a><nav class="nav" aria-label="Main"><ul><li><a href="/about/" aria-current="page">About</a></li><li><a href="/projects/">Projects</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul></nav><div class="switches"><button class="switch theme-toggle" type="button" aria-pressed="false" title="Dark theme: a blueprint"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6.5"></circle><path d="M8 1.5a6.5 6.5 0 0 1 0 13z"></path></svg><span class="switch-label">Blueprint</span></button><button class="switch motion-toggle" type="button" aria-pressed="true" title="Animated drawings"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="8" cy="8" r="6"></circle><path d="M8 2v3M8 11v3M2 8h3M11 8h3"></path></svg><span class="switch-label">Motion</span></button></div></div></header><main id="main" tabindex="-1"><div class="wrap-wide page"><header class="page-head"><p class="eyebrow">About</p><h1>Sean Hacking</h1><p class="lede">Mechanical engineer. I take hardware from a rough sketch to a tested prototype to production.</p></header><div class="about-grid"><div><div class="prose"><p>I'm a mechanical engineer who gets hardware from a napkin sketch to a flight-tested prototype to production, quickly.</p>
 <p>Most recently I was on Zipline's New Products team, where I took the second-generation drone-loading kiosk through 9 flight-tested prototypes across 3 generations. Before that I founded Veer, a cycling drivetrain company, where I invented the products, set up in-house CNC production and worked with our manufacturing vendors. After Veer I set up Form Robotics, a prototyping shop built around five CNC machines.</p>
 <p>I like owning whole systems: the mechanism, the test rig that proves it, and the cost and supplier work that gets it shipped. I'm a named inventor on 6+ patents, granted or pending. When something keeps failing, I find out why and fix the design.</p>
-<p>I studied bioengineering at UC Santa Cruz and started out building liquid-handling robots for synthetic DNA manufacturing.</p>
-<h2>Working together</h2>
-<p>I take on mechanical engineering projects: a prototype from sketch to tested hardware, a DFM and cost-down push, a test rig, or a mechanism that keeps failing. The <a href="/contact/">contact page</a> has the ways to reach me.</p></div><ul class="button-row"><li><a class="button primary" href="/cv/">Read the CV</a></li><li><a class="button" href="/projects/">See projects</a></li></ul></article></main><footer class="site-footer"><div class="wrap-wide"><span>&copy; 2026 Sean Hacking · San Francisco Bay Area</span><ul><li><a href="https://www.linkedin.com/in/sean-hacking-b5006618/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/seanhacking" rel="me noopener">GitHub</a></li><li><a href="/rss.xml">RSS</a></li></ul></div></footer><script>
+<p>I studied bioengineering at UC Santa Cruz and started out building liquid-handling robots for synthetic DNA manufacturing.</p></div><ul class="button-row"><li><a class="button primary" href="/cv/">Read the CV</a></li><li><a class="button" href="/projects/">See projects</a></li></ul><h2 class="eyebrow" style="margin-top:3rem">Career line</h2><ol class="career"><li><span class="when">Oct 2025 – Sep 2026</span><strong>Zipline</strong><span class="what">Senior Mechanical Engineer, New Products Team</span></li><li><span class="when">2024 – 2025</span><strong>Form Robotics</strong><span class="what">Founder &amp; Lead Engineer</span></li><li><span class="when">2016 – 2024</span><strong>Veer</strong><span class="what">Founder &amp; CTO</span></li><li><span class="when">2014 – 2015</span><strong>Cambrian Genomics</strong><span class="what">R&amp;D Scientist/Engineer</span></li><li><span class="when">Education</span><strong>UC Santa Cruz</strong><span class="what">B.S. Bioengineering, minor in Bioinformatics</span></li></ol></div><aside class="about-aside" aria-labelledby="spec-title"><h2 id="spec-title" class="eyebrow">Spec sheet</h2><dl class="spec"><dt>Discipline</dt><dd>Mechanical engineering</dd><dt>Based</dt><dd>San Francisco Bay Area</dd><dt>Studied</dt><dd>B.S. Bioengineering, minor in Bioinformatics, UC Santa Cruz</dd><dt>CAD</dt><dd>15+ years SolidWorks (motion simulation, large assemblies)</dd><dt>CNC</dt><dd>12+ years CNC programming and operation (3–5 axis mills, live-tooling lathes)</dd><dt>Patents</dt><dd>6+ patents granted or pending, including international</dd><dt>Shop</dt><dd>Zero safety incidents across 10+ years of shop operations</dd></dl><figure class="art-frame about-art" data-anim><div class="art-canvas"><svg class="art lb" viewBox="0 0 400 280" width="400" height="280" role="img" aria-label="Drawing of a liquid-handling robot: a pipette on a gantry steps along a row of wells and fills each one."><!-- deck and gantry --><path class="ground" d="M24 244H376"></path><path class="hatch" d="M30 244l-8 10M50 244l-8 10M70 244l-8 10M90 244l-8 10M110 244l-8 10M130 244l-8 10M150 244l-8 10M170 244l-8 10M190 244l-8 10M210 244l-8 10M230 244l-8 10M250 244l-8 10M270 244l-8 10M290 244l-8 10M310 244l-8 10M330 244l-8 10M350 244l-8 10M370 244l-8 10"></path><rect class="part draw" pathLength="1" style="--t:.8s" x="40" y="40" width="12" height="204"></rect><rect class="part draw" pathLength="1" style="--d:.1s;--t:.8s" x="348" y="40" width="12" height="204"></rect><rect class="part draw" pathLength="1" style="--d:.3s;--t:.8s" x="40" y="34" width="320" height="14"></rect><path class="cl fade" style="--d:.6s" d="M56 41H344"></path><!-- well plate (elevation) --><rect class="part draw" pathLength="1" style="--d:.5s;--t:.8s" x="70" y="196" width="260" height="40" rx="3"></rect><path class="part-line draw" pathLength="1" style="--d:0.7s;--t:.4s" d="M85 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:0" x="87" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:0.75s;--t:.4s" d="M115 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:1" x="117" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:0.7999999999999999s;--t:.4s" d="M145 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:2" x="147" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:0.85s;--t:.4s" d="M175 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:3" x="177" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:0.8999999999999999s;--t:.4s" d="M205 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:4" x="207" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:0.95s;--t:.4s" d="M235 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:5" x="237" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:1s;--t:.4s" d="M265 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:6" x="267" y="212" width="16" height="16" rx="7"></rect><path class="part-line draw" pathLength="1" style="--d:1.05s;--t:.4s" d="M295 199V220a10 10 0 0 0 20 0V199"></path><rect class="lb-liquid" style="--i:7" x="297" y="212" width="16" height="16" rx="7"></rect><text x="200" y="268" class="t-mono" text-anchor="middle">WELL PLATE · ELEVATION</text><!-- carriage, pipette and tip --><g class="lb-carriage"><rect class="part solid" x="77" y="48" width="36" height="18" rx="2"></rect><g class="lb-dip"><rect class="part" x="88" y="66" width="14" height="58" rx="2"></rect><path class="part" d="M88 124H102L97.5 172H92.5Z"></path><path class="cl" d="M95 60V182"></path><circle class="lb-drop" cx="95" cy="176" r="2.6"></circle></g></g><text x="300" y="28" class="t-hand fade" style="--d:1s">X travel →</text></svg></div><figcaption class="art-cap"><span class="art-title">Where it started: liquid handler</span></figcaption></figure></aside></div><section class="cta" aria-labelledby="cta-title"><svg class="rev-mark" viewBox="0 0 32 28" aria-hidden="true"><path d="M16 2L30 26H2Z"></path><text x="16" y="23" text-anchor="middle">A</text></svg><div><p class="eyebrow">Working together</p><h2 id="cta-title">Got a mechanism that keeps failing?</h2><div><p>I take on mechanical engineering projects: a prototype from sketch to tested hardware, a DFM and cost-down push, a test rig, or a mechanism that keeps failing. The <a href="/contact/">contact page</a> has the ways to reach me.</p></div><ul class="button-row"><li><a class="button primary" href="/contact/">Get in touch <span aria-hidden="true">→</span></a></li><li><a class="button" href="/about/">About me</a></li></ul></div><ul class="cta-list" aria-label="Projects I take on"><li>A prototype, from sketch to tested hardware</li><li>A DFM and cost-down push</li><li>A test rig</li><li>A mechanism that keeps failing</li></ul></section></div></main><footer class="site-footer"><div class="wrap-wide"><div class="title-block-footer"><div class="tbf-cell tbf-wide"><span class="tbf-label">Drawn by</span><span class="tbf-value">Sean Hacking</span></div><div class="tbf-cell"><span class="tbf-label">Location</span><span class="tbf-value">San Francisco Bay Area</span></div><div class="tbf-cell"><span class="tbf-label">Links</span><ul class="tbf-links"><li><a href="https://www.linkedin.com/in/sean-hacking-b5006618/" rel="me noopener">LinkedIn</a></li><li><a href="https://github.com/seanhacking" rel="me noopener">GitHub</a></li><li><a href="/rss.xml">RSS</a></li></ul></div><div class="tbf-cell"><span class="tbf-label">Rev</span><span class="tbf-value">&copy; 2026</span></div></div><p class="footer-note">No tracking, no cookies. The drawings are illustrations made for this site.</p></div></footer><script>
       (function () {
         var d = document.documentElement;
-        var btn = document.querySelector(".theme-toggle");
-        if (!btn) return;
-        var mq = window.matchMedia("(prefers-color-scheme: dark)");
-        function current() { return d.getAttribute("data-theme") || (mq.matches ? "dark" : "light"); }
-        function label() {
-          var next = current() === "dark" ? "light" : "dark";
-          btn.textContent = next === "dark" ? "Dark" : "Light";
-          btn.setAttribute("aria-label", "Switch to " + next + " theme");
+        var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+
+        // Theme switch: paper (light) and blueprint (dark).
+        var tbtn = document.querySelector(".theme-toggle");
+        function theme() { return d.getAttribute("data-theme") || (mq && mq.matches ? "dark" : "light"); }
+        function showTheme() {
+          if (!tbtn) return;
+          var dark = theme() === "dark";
+          tbtn.setAttribute("aria-pressed", dark ? "true" : "false");
         }
-        label();
-        btn.addEventListener("click", function () {
-          var next = current() === "dark" ? "light" : "dark";
+        if (tbtn) tbtn.addEventListener("click", function () {
+          var next = theme() === "dark" ? "light" : "dark";
           d.setAttribute("data-theme", next);
           try { localStorage.setItem("theme", next); } catch (e) {}
-          label();
+          showTheme();
         });
-        mq.addEventListener && mq.addEventListener("change", label);
+        if (mq && mq.addEventListener) mq.addEventListener("change", showTheme);
+        showTheme();
+
+        // Motion switch: stops every animation and leaves the finished drawings.
+        var mbtn = document.querySelector(".motion-toggle");
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function showMotion() {
+          if (!mbtn) return;
+          var on = d.classList.contains("motion");
+          mbtn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+        if (mbtn) mbtn.addEventListener("click", function () {
+          var on = !d.classList.contains("motion");
+          d.classList.toggle("motion", on);
+          try { localStorage.setItem("motion", on ? "on" : "off"); } catch (e) {}
+          showMotion();
+          if (on) observe();
+        });
+        showMotion();
+        if (reduce && mbtn) mbtn.hidden = true;
+
+        // Drawings run only while on screen: elements marked data-anim get "is-live" while visible.
+        var io = null;
+        function observe() {
+          var els = document.querySelectorAll("[data-anim]");
+          if (!("IntersectionObserver" in window)) {
+            for (var i = 0; i < els.length; i++) els[i].classList.add("is-live");
+            return;
+          }
+          if (io) return;
+          io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { e.target.classList.toggle("is-live", e.isIntersecting); });
+          }, { rootMargin: "0px 0px -12% 0px", threshold: 0.01 });
+          for (var j = 0; j < els.length; j++) io.observe(els[j]);
+        }
+        if (d.classList.contains("motion")) observe();
+
+        // The story belt moves with the scroll position.
+        var belt = document.querySelector("[data-belt]");
+        if (belt) {
+          var ticking = false;
+          var update = function () {
+            ticking = false;
+            if (!d.classList.contains("motion")) return;
+            belt.style.setProperty("--sp", String(Math.round(window.scrollY)));
+          };
+          window.addEventListener("scroll", function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+          }, { passive: true });
+          update();
+        }
       })();
     </script></body></html>
